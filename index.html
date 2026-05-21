@@ -297,47 +297,57 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 <!-- NAV -->
 <header class="nav" id="main-nav">
   <div class="nav-inner">
-    <div class="logo">
-      <div class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></div>
-      <div>
-        <div class="logo-text">OT<span> Nest</span></div>
-        <div class="logo-sub">Physiotherapy Clinic</div>
-      </div>
-    </div>
 
-    <nav class="nav-links">
-      <a class="nav-link active" href="#">Home</a>
-      <a class="nav-link" href="#">About</a>
-      <div class="dropdown-wrap">
-        <button class="nav-link">Services <i class="fa-solid fa-chevron-down chevron"></i></button>
-        <div class="nav-dropdown">
-          <a href="#">Sports Rehabilitation</a>
-          <a href="#">Post-Surgery Recovery</a>
-          <a href="#">Back &amp; Spine Therapy</a>
-          <a href="#">Neurological Physio</a>
-          <a href="#">Paediatric Physio</a>
-          <a href="#">Geriatric Physio</a>
-        </div>
-      </div>
-      <a class="nav-link" href="#">Pricing</a>
-      <a class="nav-link" href="#">Blog</a>
-      <a class="nav-link" href="#">Contact</a>
+    <!-- Breadcrumb -->
+    <nav class="header-breadcrumb">
+      <a href="#">
+        <i class="fa-solid fa-house"></i>
+      </a>
+
+      <span class="bc-sep">
+        <i class="fa-solid fa-chevron-right"></i>
+      </span>
+
+      <a href="#">Home</a>
+
+      <span class="bc-sep">
+        <i class="fa-solid fa-chevron-right"></i>
+      </span>
+
+      <span class="current-page">Services</span>
     </nav>
 
+    <!-- Logo -->
+    <div class="logo">
+      <div class="logo-mark">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+
+      <div>
+        <div class="logo-text">
+          OT<span> Nest</span>
+        </div>
+        <div class="logo-sub">
+          Physiotherapy Clinic
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Actions -->
     <div class="nav-actions">
-      <!-- Flat icon: search -->
-      <button class="nav-icon-btn show-mobile" title="Search" aria-label="Search">
+
+      <!-- Search -->
+      <button class="nav-icon-btn" title="Search">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <!-- Flat icon: sign in -->
-      <button class="nav-icon-btn show-mobile" title="Sign in" aria-label="Sign in">
+
+      <!-- Sign in -->
+      <button class="nav-icon-btn" title="Sign In">
         <i class="fa-regular fa-circle-user"></i>
       </button>
-      <button class="btn-book">Book Appointment</button>
-      <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
-        <i class="fa-solid fa-bars" id="ham-icon"></i>
-      </button>
+
     </div>
+
   </div>
 </header>
 
