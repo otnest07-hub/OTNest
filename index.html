@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<title>OT Nest – Book Appointment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Razorpay SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -19,32 +23,29 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:15px}
-.m{font-family:'Marcellus',Georgia,serif;font-weight:400}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 
-/* ── TOPBAR ── */
+/* ─── TOPBAR ─── */
 .topbar{background:var(--ink-2);color:var(--ink-6);font-size:12px;font-weight:500;padding:7px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .topbar a{color:var(--ink-6);transition:color .15s}.topbar a:hover{color:#fff}
 .topbar-left{display:flex;gap:20px;align-items:center}
 .topbar-right{display:flex;gap:16px;align-items:center}
 .topbar-sep{color:var(--ink-4);font-size:10px}
 
-/* ── NAV ── */
+/* ─── NAV ─── */
 .nav{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--ink-8);position:sticky;top:0;z-index:100;transition:box-shadow .2s}
 .nav.scrolled{box-shadow:var(--shadow-md)}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 20px;gap:12px}
-.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
 .logo-mark{width:34px;height:34px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center}
 .logo-mark i{color:#fff;font-size:16px}
 .logo-text{font-family:'Marcellus',serif;font-size:20px;color:var(--ink);letter-spacing:-.2px;line-height:1}
 .logo-text span{color:var(--teal)}
 .logo-sub{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-5);font-family:'Inter',sans-serif;margin-top:2px}
-
 .nav-links{display:flex;align-items:center;gap:2px}
 .nav-link{padding:7px 13px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--ink-4);cursor:pointer;transition:color .15s,background .15s;border:none;background:none;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px}
-.nav-link:hover{color:var(--ink);background:var(--ink-9)}
-.nav-link.active{color:var(--teal);background:var(--teal-lt)}
+.nav-link:hover,.nav-link.active{color:var(--teal);background:var(--teal-lt)}
 .nav-link i.chevron{font-size:10px;transition:transform .2s}
 .dropdown-wrap{position:relative}
 .dropdown-wrap:hover .nav-dropdown{display:block}
@@ -52,41 +53,29 @@ a{text-decoration:none;color:inherit}
 .nav-dropdown{display:none;position:absolute;top:100%;left:0;margin-top:6px;width:230px;background:#fff;border-radius:var(--r-lg);border:1px solid var(--ink-8);box-shadow:var(--shadow-lg);padding:6px;z-index:200}
 .nav-dropdown a{display:block;padding:9px 14px;font-size:13px;font-weight:500;color:var(--ink-4);border-radius:8px;transition:color .12s,background .12s}
 .nav-dropdown a:hover{color:var(--teal);background:var(--teal-lt)}
-
 .nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-icon-btn{width:36px;height:36px;border:none;background:none;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-4);transition:color .15s,background .15s;position:relative}
+.nav-icon-btn{width:36px;height:36px;border:none;background:none;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-4);transition:color .15s,background .15s}
 .nav-icon-btn:hover{color:var(--ink);background:var(--ink-9)}
 .nav-icon-btn i{font-size:16px}
-.btn-book{padding:8px 20px;background:var(--teal);color:#fff;border-radius:10px;font-size:13.5px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap}
-.btn-book:hover{background:var(--teal-dk)}
+.btn-book-nav{padding:8px 20px;background:var(--teal);color:#fff;border-radius:10px;font-size:13.5px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap}
+.btn-book-nav:hover{background:var(--teal-dk)}
+.user-chip{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:20px;border:1px solid var(--ink-8);background:#fff;cursor:pointer;transition:border-color .15s}
+.user-chip:hover{border-color:var(--teal)}
+.user-chip-av{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.user-chip-name{font-size:13px;font-weight:600;color:var(--ink-3)}
 
-/* ── BREADCRUMB (mobile linked) ── */
-.breadcrumb-bar{background:var(--ink-9);border-bottom:1px solid var(--ink-8);padding:10px 20px;display:none}
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-5);max-width:1100px;margin:0 auto;flex-wrap:wrap}
-.breadcrumb a{color:var(--ink-5);font-weight:500;transition:color .12s;display:flex;align-items:center;gap:4px}
-.breadcrumb a:hover{color:var(--teal)}
-.breadcrumb a i{font-size:11px}
-.breadcrumb-sep{color:var(--ink-7);font-size:10px}
-.breadcrumb-current{color:var(--ink-3);font-weight:600}
-
-/* ── MOBILE MENU ── */
+/* ─── MOBILE ─── */
 .hamburger{display:none;width:38px;height:38px;border:none;background:none;cursor:pointer;border-radius:9px;align-items:center;justify-content:center;color:var(--ink-3);transition:background .15s;font-size:18px}
 .hamburger:hover{background:var(--ink-9)}
 .mobile-drawer{display:none;position:fixed;inset:0;z-index:200;top:62px}
 .mobile-drawer.open{display:flex;flex-direction:column}
 .drawer-backdrop{flex:1;background:rgba(15,23,42,.35);backdrop-filter:blur(2px)}
 .drawer-body{background:#fff;border-top:1px solid var(--ink-8);padding:16px;overflow-y:auto;max-height:80vh;box-shadow:var(--shadow-lg)}
-
-/* breadcrumb inside drawer */
 .drawer-breadcrumb{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--ink-9);border-radius:10px;font-size:12px;color:var(--ink-5);margin-bottom:14px;flex-wrap:wrap}
 .drawer-breadcrumb a{color:var(--teal);font-weight:600;display:flex;align-items:center;gap:3px}
-.drawer-breadcrumb a i{font-size:10px}
-.drawer-breadcrumb span{color:var(--ink-7);font-size:9px}
 .drawer-breadcrumb .cur{color:var(--ink-3);font-weight:600}
-
 .drawer-link{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;color:var(--ink-3);transition:background .12s,color .12s;cursor:pointer;border:none;background:none;width:100%;font-family:'Inter',sans-serif;text-align:left}
 .drawer-link:hover,.drawer-link.active{background:var(--teal-lt);color:var(--teal)}
-.drawer-link i{font-size:11px;color:var(--ink-6)}
 .drawer-children{margin:2px 0 6px 16px;padding-left:12px;border-left:2px solid var(--ink-8);display:none}
 .drawer-children.open{display:block}
 .drawer-child{display:block;padding:8px 12px;font-size:13px;font-weight:500;color:var(--ink-4);border-radius:8px;transition:color .12s,background .12s}
@@ -94,16 +83,24 @@ a{text-decoration:none;color:inherit}
 .drawer-actions{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--ink-8)}
 .btn-outline-full{padding:11px;border-radius:10px;border:1px solid var(--ink-8);font-size:14px;font-weight:600;color:var(--ink-3);background:#fff;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Inter',sans-serif;cursor:pointer;transition:border-color .15s,color .15s}
 .btn-outline-full:hover{border-color:var(--teal);color:var(--teal)}
-.btn-full{padding:12px;border-radius:10px;border:none;background:var(--teal);color:#fff;font-size:14px;font-weight:600;text-align:center;font-family:'Inter',sans-serif;cursor:pointer}
+.btn-full-teal{padding:12px;border-radius:10px;border:none;background:var(--teal);color:#fff;font-size:14px;font-weight:600;text-align:center;font-family:'Inter',sans-serif;cursor:pointer;width:100%}
 
-/* ── HERO ── */
+/* ─── BREADCRUMB BAR (mobile) ─── */
+.breadcrumb-bar{background:var(--ink-9);border-bottom:1px solid var(--ink-8);padding:10px 20px;display:none}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-5);max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.breadcrumb a{color:var(--ink-5);font-weight:500;transition:color .12s;display:flex;align-items:center;gap:4px}
+.breadcrumb a:hover{color:var(--teal)}
+.breadcrumb-sep{color:var(--ink-7);font-size:10px}
+.breadcrumb-current{color:var(--ink-3);font-weight:600}
+
+/* ─── HERO ─── */
 .hero{background:#fff;padding:72px 20px 60px;position:relative;overflow:hidden;min-height:88vh;display:flex;align-items:center}
 .hero-bg-teal{position:absolute;top:-80px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(20,184,166,.09) 0%,transparent 65%);pointer-events:none}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.022) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
 .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;width:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:20px}
 .eyebrow::before{content:'';display:block;width:20px;height:1.5px;background:var(--teal)}
-h1.hero-h{font-family:'Marcellus',serif;font-size:58px;line-height:1.06;color:var(--ink);margin-bottom:22px;letter-spacing:-1.5px}
+h1.hero-h{font-family:'Marcellus',serif;font-size:54px;line-height:1.06;color:var(--ink);margin-bottom:22px;letter-spacing:-1.5px}
 h1.hero-h em{font-style:italic;color:var(--teal)}
 .hero-body{font-size:16px;color:var(--ink-5);line-height:1.75;margin-bottom:32px;max-width:400px}
 .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
@@ -115,19 +112,16 @@ h1.hero-h em{font-style:italic;color:var(--teal)}
 .avatars{display:flex}
 .av{width:32px;height:32px;border-radius:50%;border:2.5px solid #fff;overflow:hidden;margin-left:-8px;flex-shrink:0}
 .av:first-child{margin-left:0}
-.av img{width:100%;height:100%;object-fit:cover}
 .av-fallback{width:100%;height:100%;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--teal)}
 .stars-row{display:flex;gap:2px}.star{color:#fbbf24;font-size:13px}
 .rating-val{font-size:14px;font-weight:700;color:var(--ink);margin-left:4px}
 .review-count{font-size:11.5px;color:var(--ink-5);margin-top:2px}
-
-/* Hero card */
 .hero-card-area{position:relative;height:420px;display:flex;align-items:center;justify-content:center}
 .doc-card{background:#fff;border-radius:var(--r-xl);border:1px solid var(--ink-8);box-shadow:var(--shadow-md);overflow:hidden;width:260px;position:relative;z-index:2}
 .doc-img{height:200px;background:linear-gradient(145deg,var(--teal-lt),#e0f2fe);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
 .doc-img img{height:190px;width:180px;object-fit:cover;object-position:top;border-radius:80px 80px 0 0;opacity:.85}
 .doc-info{padding:18px 20px}
-.doc-name{font-family:'Marcellus',serif;font-size:17px;color:var(--ink);line-height:1.2}
+.doc-name{font-family:'Marcellus',serif;font-size:17px;color:var(--ink)}
 .doc-role{font-size:12px;color:var(--teal);font-weight:600;margin-top:4px}
 .doc-meta{display:flex;gap:16px;margin-top:12px}
 .doc-meta-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-5)}
@@ -140,47 +134,41 @@ h1.hero-h em{font-style:italic;color:var(--teal)}
 .fc-sub{font-size:10px;color:var(--ink-6);margin-top:1px}
 @keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-/* ── STATS ── */
+/* ─── STATS ─── */
 .stats-bar{background:var(--ink);padding:40px 20px}
 .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center}
 .stat-n{font-family:'Marcellus',serif;font-size:42px;color:#5eead4;line-height:1}
 .stat-l{font-size:12px;color:var(--ink-5);font-weight:500;margin-top:6px}
 
-/* ── SECTION shared ── */
-.section{padding:72px 20px;max-width:1100px;margin:0 auto}
-.section-bg{padding:72px 20px;background:var(--ink-10)}
-.section-bg .section{padding:0}
-.s-head{margin-bottom:52px}
-h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-height:1.12;margin-bottom:12px;letter-spacing:-.5px}
+/* ─── SECTIONS ─── */
+.wrap{padding:72px 20px;max-width:1100px;margin:0 auto}
+.wrap-bg{background:var(--ink-10)}
+.s-head{margin-bottom:48px}
+h2.s-title{font-family:'Marcellus',serif;font-size:38px;color:var(--ink);line-height:1.12;margin-bottom:12px;letter-spacing:-.5px}
 .s-desc{font-size:15px;color:var(--ink-5);line-height:1.75;max-width:520px}
 
-/* ── SPECIALITIES ── */
+/* ─── SPECIALITIES ─── */
 .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.spec-card{border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--ink-8);background:#fff;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s;cursor:pointer;position:relative;group:true}
+.spec-card{border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--ink-8);background:#fff;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s;cursor:pointer}
 .spec-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
 .spec-img{height:180px;overflow:hidden;position:relative}
 .spec-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .spec-card:hover .spec-img img{transform:scale(1.05)}
-.spec-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.55) 0%,transparent 55%);pointer-events:none}
+.spec-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.55) 0%,transparent 55%)}
 .spec-badge{position:absolute;bottom:12px;left:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.05em}
 .spec-body{padding:18px 20px}
-.spec-title{font-family:'Marcellus',serif;font-size:16.5px;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.spec-title{font-family:'Marcellus',serif;font-size:16.5px;color:var(--ink);margin-bottom:8px}
 .spec-desc{font-size:13px;color:var(--ink-5);line-height:1.65}
-.spec-link{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--teal);margin-top:14px;transition:gap .15s}
-.spec-card:hover .spec-link{gap:8px}
-.spec-link i{font-size:11px}
+.spec-link{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--teal);margin-top:14px}
 
-/* ── TESTIMONIALS ── */
-.testi-scroll-wrap{position:relative}
+/* ─── TESTIMONIALS ─── */
 .testi-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 0 20px;scrollbar-width:none}
 .testi-track::-webkit-scrollbar{display:none}
-.testi-card{background:#fff;border:1px solid var(--ink-8);border-radius:var(--r-xl);padding:26px 24px;flex:0 0 320px;scroll-snap-align:start;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px;transition:box-shadow .2s}
-.testi-card:hover{box-shadow:var(--shadow-md)}
+.testi-card{background:#fff;border:1px solid var(--ink-8);border-radius:var(--r-xl);padding:26px 24px;flex:0 0 320px;scroll-snap-align:start;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px}
 .testi-top{display:flex;align-items:center;justify-content:space-between}
 .testi-stars{display:flex;gap:2px}
 .testi-star{font-size:13px;color:#fbbf24}
 .testi-verified{font-size:11px;font-weight:600;color:#10b981;display:flex;align-items:center;gap:4px}
-.testi-verified i{font-size:10px}
 .testi-quote{font-size:14px;color:var(--ink-4);line-height:1.75;font-style:italic;flex:1}
 .testi-footer{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--ink-9)}
 .testi-av{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2.5px solid var(--ink-9)}
@@ -188,7 +176,6 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .testi-name{font-size:14px;font-weight:700;color:var(--ink)}
 .testi-role{font-size:12px;color:var(--ink-5);margin-top:2px}
 .testi-condition{font-size:11px;font-weight:600;color:var(--teal);margin-top:4px;display:flex;align-items:center;gap:4px}
-.testi-condition i{font-size:10px}
 .testi-nav{display:flex;align-items:center;gap:10px;margin-top:6px}
 .testi-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink-8);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .15s,background .15s;color:var(--ink-4);font-size:13px}
 .testi-btn:hover{border-color:var(--teal);background:var(--teal-lt);color:var(--teal)}
@@ -196,11 +183,11 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .t-dot{width:6px;height:6px;border-radius:50%;background:var(--ink-8);transition:background .2s,width .2s;cursor:pointer}
 .t-dot.active{background:var(--teal);width:18px;border-radius:3px}
 
-/* ── LOCATIONS ── */
+/* ─── LOCATIONS ─── */
 .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .loc-card{border-radius:var(--r-xl);border:1px solid var(--ink-8);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
 .loc-map{height:220px;background:var(--ink-9);position:relative;overflow:hidden}
-.loc-map iframe{width:100%;height:100%;border:none;pointer-events:all}
+.loc-map iframe{width:100%;height:100%;border:none}
 .loc-info{padding:20px 22px}
 .loc-city{font-family:'Marcellus',serif;font-size:18px;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .loc-city i{font-size:16px;color:var(--teal)}
@@ -208,9 +195,8 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .loc-detail strong{color:var(--ink-3);font-weight:600}
 .btn-direction{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:var(--teal-lt);color:var(--teal);border-radius:9px;font-size:13px;font-weight:700;border:1.5px solid rgba(13,148,136,.2);transition:background .15s,border-color .15s;font-family:'Inter',sans-serif}
 .btn-direction:hover{background:var(--teal);color:#fff}
-.btn-direction i{font-size:12px}
 
-/* ── FOOTER ── */
+/* ─── FOOTER ─── */
 .footer{background:var(--ink);color:#fff;padding:0}
 .footer-cta{background:linear-gradient(135deg,var(--teal-dk),#0369a1);padding:44px 20px}
 .footer-cta-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -218,7 +204,6 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .footer-cta p{font-size:13.5px;color:rgba(255,255,255,.65);margin-top:4px}
 .btn-cta-white{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;background:#fff;color:var(--teal-dk);border-radius:11px;font-size:14px;font-weight:700;font-family:'Inter',sans-serif;border:none;cursor:pointer;transition:background .15s;flex-shrink:0}
 .btn-cta-white:hover{background:var(--teal-lt)}
-
 .footer-main{max-width:1100px;margin:0 auto;padding:52px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
 .footer-brand .logo-text{font-size:21px;color:#fff}
 .footer-brand .logo-text span{color:#5eead4}
@@ -227,8 +212,6 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .footer-contact a{color:var(--ink-5);transition:color .15s;display:flex;align-items:center;gap:8px}
 .footer-contact a:hover{color:#5eead4}
 .footer-contact i{font-size:13px;color:#5eead4;width:16px}
-
-/* Social icons — flat colored */
 .social-row{display:flex;gap:8px;margin-top:20px}
 .soc-btn{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform .15s,opacity .15s;border:none;cursor:pointer}
 .soc-btn:hover{transform:translateY(-2px);opacity:.85}
@@ -237,7 +220,6 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .soc-yt{background:#ff0000;color:#fff}
 .soc-wa{background:#25d366;color:#fff}
 .soc-li{background:#0a66c2;color:#fff}
-
 .footer-col h5{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-5);margin-bottom:16px}
 .footer-col ul{list-style:none}
 .footer-col li{margin-bottom:9px}
@@ -247,9 +229,130 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 .footer-bottom a{color:var(--ink-5);margin-left:16px;transition:color .15s}
 .footer-bottom a:hover{color:#5eead4}
 
-/* ── RESPONSIVE ── */
+/* ─── MODAL OVERLAY ─── */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#fff;border-radius:24px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:translateY(16px);transition:transform .25s;position:relative}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-header{padding:24px 24px 0;display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Marcellus',serif;font-size:22px;color:var(--ink)}
+.modal-close{width:32px;height:32px;border:none;background:var(--ink-9);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-4);font-size:14px;transition:background .15s}
+.modal-close:hover{background:var(--ink-8)}
+.modal-body{padding:20px 24px 28px}
+.modal-tabs{display:flex;gap:4px;background:var(--ink-9);border-radius:10px;padding:4px;margin-bottom:20px}
+.modal-tab{flex:1;padding:8px;border:none;background:none;border-radius:8px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink-5);transition:background .15s,color .15s}
+.modal-tab.active{background:#fff;color:var(--teal);box-shadow:var(--shadow)}
+
+/* ─── FORMS ─── */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--ink-3);margin-bottom:6px}
+.form-input{width:100%;padding:11px 14px;border:1.5px solid var(--ink-8);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
+.form-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.1)}
+.form-input::placeholder{color:var(--ink-6)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-hint{font-size:12px;color:var(--ink-5);margin-top:5px}
+.form-error{font-size:12px;color:#ef4444;margin-top:5px;display:none}
+.form-error.show{display:block}
+.form-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--ink-6);font-size:13px}
+.form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--ink-8)}
+.btn-submit{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:11px;font-size:14.5px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:var(--teal-dk)}
+.btn-submit:disabled{background:var(--ink-7);cursor:not-allowed}
+.btn-social-login{width:100%;padding:11px;border:1.5px solid var(--ink-8);background:#fff;border-radius:10px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--ink-3);transition:border-color .15s;margin-bottom:8px}
+.btn-social-login:hover{border-color:var(--teal)}
+
+/* ─── BOOKING FLOW STEPS ─── */
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:24px}
+.step-item{display:flex;align-items:center;flex:1}
+.step-circle{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink-8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--ink-6);background:#fff;flex-shrink:0;transition:all .2s}
+.step-item.active .step-circle{border-color:var(--teal);background:var(--teal);color:#fff}
+.step-item.done .step-circle{border-color:var(--teal);background:var(--teal);color:#fff}
+.step-line{flex:1;height:2px;background:var(--ink-8);margin:0 4px;transition:background .2s}
+.step-item.done + .step-item .step-line,
+.step-item.done .step-line{background:var(--teal)}
+.step-label{font-size:10px;color:var(--ink-5);margin-top:4px;text-align:center;display:block}
+
+.booking-step{display:none}
+.booking-step.active{display:block}
+
+/* service selection */
+.service-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.service-opt{border:1.5px solid var(--ink-8);border-radius:10px;padding:12px;cursor:pointer;transition:border-color .15s,background .15s;display:flex;align-items:center;gap:10px}
+.service-opt:hover{border-color:var(--teal);background:var(--teal-lt)}
+.service-opt.selected{border-color:var(--teal);background:var(--teal-lt)}
+.service-opt-icon{width:32px;height:32px;border-radius:8px;background:var(--ink-9);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:var(--teal)}
+.service-opt-name{font-size:13px;font-weight:600;color:var(--ink-3)}
+.service-opt-price{font-size:11px;color:var(--ink-5);margin-top:2px}
+
+/* date/slot picker */
+.date-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.date-chip{border:1.5px solid var(--ink-8);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+.date-chip:hover{border-color:var(--teal)}
+.date-chip.selected{border-color:var(--teal);background:var(--teal);color:#fff}
+.date-chip.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.date-chip-day{font-size:10px;font-weight:600;text-transform:uppercase;color:inherit;opacity:.7}
+.date-chip-num{font-family:'Marcellus',serif;font-size:22px;color:inherit;line-height:1.1}
+.date-chip-month{font-size:10px;color:inherit;opacity:.7}
+.slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.slot-chip{border:1.5px solid var(--ink-8);border-radius:9px;padding:9px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-4);transition:all .15s}
+.slot-chip:hover{border-color:var(--teal);color:var(--teal)}
+.slot-chip.selected{border-color:var(--teal);background:var(--teal);color:#fff}
+.slot-chip.booked{background:var(--ink-9);color:var(--ink-6);cursor:not-allowed;pointer-events:none;text-decoration:line-through;opacity:.6}
+
+/* booking summary */
+.summary-card{background:var(--teal-lt);border:1.5px solid rgba(13,148,136,.2);border-radius:12px;padding:16px;margin-bottom:16px}
+.summary-row{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;padding:6px 0;border-bottom:1px solid rgba(13,148,136,.1)}
+.summary-row:last-child{border-bottom:none;font-weight:700;font-size:15px;padding-top:10px}
+.summary-row span:first-child{color:var(--ink-4)}
+.summary-row span:last-child{color:var(--ink);font-weight:600}
+
+/* payment methods */
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pay-method{border:1.5px solid var(--ink-8);border-radius:10px;padding:14px;cursor:pointer;text-align:center;transition:all .15s}
+.pay-method:hover{border-color:var(--teal)}
+.pay-method.selected{border-color:var(--teal);background:var(--teal-lt)}
+.pay-method i{font-size:22px;margin-bottom:6px;display:block}
+.pay-method-name{font-size:12px;font-weight:700;color:var(--ink-3)}
+.pay-method-desc{font-size:10px;color:var(--ink-5);margin-top:2px}
+
+/* whatsapp connect strip */
+.wa-strip{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:1.5px solid #86efac;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;cursor:pointer;transition:transform .15s}
+.wa-strip:hover{transform:scale(1.01)}
+.wa-icon{width:40px;height:40px;background:#25d366;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-icon i{color:#fff;font-size:20px}
+.wa-text strong{font-size:13.5px;font-weight:700;color:#166534;display:block}
+.wa-text span{font-size:12px;color:#166534;opacity:.8}
+.wa-arrow{margin-left:auto;color:#16a34a;font-size:14px}
+
+/* success state */
+.success-screen{text-align:center;padding:20px 0}
+.success-icon{width:72px;height:72px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;color:#16a34a}
+.success-title{font-family:'Marcellus',serif;font-size:24px;color:var(--ink);margin-bottom:8px}
+.success-sub{font-size:14px;color:var(--ink-5);line-height:1.7;margin-bottom:24px}
+.booking-ref{background:var(--ink-9);border-radius:10px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--ink-4)}
+.booking-ref strong{color:var(--ink);font-size:16px;display:block;margin-bottom:4px;font-family:'Marcellus',serif}
+
+/* spinner */
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* notification toast */
+.toast{position:fixed;bottom:24px;right:24px;z-index:600;background:var(--ink);color:#fff;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);transform:translateY(80px);opacity:0;transition:all .3s;max-width:340px;display:flex;align-items:center;gap:10px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:#16a34a}
+.toast.error{background:#dc2626}
+.toast i{font-size:16px;flex-shrink:0}
+
+/* WhatsApp FAB */
+.wa-fab{position:fixed;bottom:28px;right:28px;z-index:400;width:52px;height:52px;background:#25d366;border-radius:50%;box-shadow:0 4px 20px rgba(37,211,102,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,box-shadow .2s;border:none}
+.wa-fab:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5)}
+.wa-fab i{color:#fff;font-size:24px}
+.wa-fab-pulse{position:absolute;width:52px;height:52px;border-radius:50%;background:#25d366;opacity:.4;animation:waPulse 2s ease-out infinite}
+@keyframes waPulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.8);opacity:0}}
+
+/* ─── RESPONSIVE ─── */
 @media(max-width:900px){
-  .nav-links,.nav-actions .btn-book,.nav-actions .nav-icon-btn:not(.show-mobile){display:none!important}
+  .nav-links,.nav-actions .btn-book-nav,.nav-actions .nav-icon-btn:not(.show-mobile){display:none!important}
   .hamburger{display:flex}
   .nav-actions{gap:4px}
   .breadcrumb-bar{display:block}
@@ -262,8 +365,10 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
   .footer-main{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:span 2}
   .footer-cta-inner{flex-direction:column;text-align:center}
-  h2.s-title{font-size:32px}
+  h2.s-title{font-size:30px}
   .hero{min-height:auto;padding:80px 20px 60px}
+  .form-row{grid-template-columns:1fr}
+  .date-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:560px){
   .spec-grid{grid-template-columns:1fr}
@@ -273,6 +378,12 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
   .topbar{display:none}
   h1.hero-h{font-size:34px}
   .testi-card{flex:0 0 280px}
+  .service-options{grid-template-columns:1fr}
+  .pay-methods{grid-template-columns:1fr}
+  .date-grid{grid-template-columns:repeat(3,1fr)}
+  .slot-grid{grid-template-columns:repeat(2,1fr)}
+  .modal-box{border-radius:16px}
+  .wa-fab{bottom:20px;right:20px}
 }
 </style>
 </head>
@@ -297,14 +408,13 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 <!-- NAV -->
 <header class="nav" id="main-nav">
   <div class="nav-inner">
-    <div class="logo">
+    <div class="logo" onclick="scrollTop()">
       <div class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></div>
       <div>
         <div class="logo-text">OT<span> Nest</span></div>
         <div class="logo-sub">Physiotherapy Clinic</div>
       </div>
     </div>
-
     <nav class="nav-links">
       <a class="nav-link active" href="#">Home</a>
       <a class="nav-link" href="#">About</a>
@@ -323,17 +433,16 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
       <a class="nav-link" href="#">Blog</a>
       <a class="nav-link" href="#">Contact</a>
     </nav>
-
     <div class="nav-actions">
-      <!-- Flat icon: search -->
-      <button class="nav-icon-btn show-mobile" title="Search" aria-label="Search">
+      <button class="nav-icon-btn show-mobile" title="Search" onclick="showToast('Search coming soon','info')">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <!-- Flat icon: sign in -->
-      <button class="nav-icon-btn show-mobile" title="Sign in" aria-label="Sign in">
-        <i class="fa-regular fa-circle-user"></i>
-      </button>
-      <button class="btn-book">Book Appointment</button>
+      <div id="nav-user-area">
+        <button class="nav-icon-btn show-mobile" id="nav-signin-btn" title="Sign in" onclick="openAuthModal()">
+          <i class="fa-regular fa-circle-user"></i>
+        </button>
+      </div>
+      <button class="btn-book-nav" onclick="openBooking()">Book Appointment</button>
       <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
         <i class="fa-solid fa-bars" id="ham-icon"></i>
       </button>
@@ -341,19 +450,18 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
   </div>
 </header>
 
-<!-- BREADCRUMB BAR (always visible on mobile, shows current page context) -->
+<!-- BREADCRUMB BAR (mobile) -->
 <div class="breadcrumb-bar">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="#"><i class="fa-solid fa-house"></i> Home</a>
     <span class="breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></span>
-    <span class="breadcrumb-current">Services</span>
+    <span class="breadcrumb-current" id="bc-current">Home</span>
   </nav>
 </div>
 
 <!-- MOBILE DRAWER -->
 <div class="mobile-drawer" id="mobile-drawer">
   <div class="drawer-body">
-    <!-- Breadcrumb inside drawer — links to menu sections -->
     <div class="drawer-breadcrumb">
       <a href="#"><i class="fa-solid fa-house"></i> Home</a>
       <span>›</span>
@@ -365,13 +473,8 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
       <span>›</span>
       <span class="cur">Contact</span>
     </div>
-
-    <button class="drawer-link active" onclick="closeMobile()">
-      <span><i class="fa-solid fa-house" style="margin-right:10px;color:var(--teal)"></i>Home</span>
-    </button>
-    <button class="drawer-link" onclick="closeMobile()">
-      <span><i class="fa-regular fa-user" style="margin-right:10px;color:var(--ink-6)"></i>About</span>
-    </button>
+    <button class="drawer-link active" onclick="closeMobile()"><span><i class="fa-solid fa-house" style="margin-right:10px;color:var(--teal)"></i>Home</span></button>
+    <button class="drawer-link" onclick="closeMobile()"><span><i class="fa-regular fa-user" style="margin-right:10px;color:var(--ink-6)"></i>About</span></button>
     <button class="drawer-link" id="services-toggle" onclick="toggleServices()">
       <span><i class="fa-solid fa-stethoscope" style="margin-right:10px;color:var(--ink-6)"></i>Services</span>
       <i class="fa-solid fa-chevron-down" id="svc-chevron" style="transition:transform .2s"></i>
@@ -383,21 +486,13 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
       <a class="drawer-child" href="#">Neurological Physio</a>
       <a class="drawer-child" href="#">Paediatric Physio</a>
     </div>
-    <button class="drawer-link" onclick="closeMobile()">
-      <span><i class="fa-solid fa-tag" style="margin-right:10px;color:var(--ink-6)"></i>Pricing</span>
-    </button>
-    <button class="drawer-link" onclick="closeMobile()">
-      <span><i class="fa-regular fa-newspaper" style="margin-right:10px;color:var(--ink-6)"></i>Blog</span>
-    </button>
-    <button class="drawer-link" onclick="closeMobile()">
-      <span><i class="fa-solid fa-location-dot" style="margin-right:10px;color:var(--ink-6)"></i>Locations</span>
-    </button>
-    <button class="drawer-link" onclick="closeMobile()">
-      <span><i class="fa-regular fa-envelope" style="margin-right:10px;color:var(--ink-6)"></i>Contact</span>
-    </button>
+    <button class="drawer-link" onclick="closeMobile()"><span><i class="fa-solid fa-tag" style="margin-right:10px;color:var(--ink-6)"></i>Pricing</span></button>
+    <button class="drawer-link" onclick="closeMobile()"><span><i class="fa-regular fa-newspaper" style="margin-right:10px;color:var(--ink-6)"></i>Blog</span></button>
+    <button class="drawer-link" onclick="closeMobile()"><span><i class="fa-solid fa-location-dot" style="margin-right:10px;color:var(--ink-6)"></i>Locations</span></button>
+    <button class="drawer-link" onclick="closeMobile()"><span><i class="fa-regular fa-envelope" style="margin-right:10px;color:var(--ink-6)"></i>Contact</span></button>
     <div class="drawer-actions">
-      <button class="btn-outline-full"><i class="fa-regular fa-circle-user"></i> Sign in</button>
-      <button class="btn-full">Book Appointment</button>
+      <button class="btn-outline-full" onclick="closeMobile();openAuthModal()"><i class="fa-regular fa-circle-user"></i> Sign in / Register</button>
+      <button class="btn-full-teal" onclick="closeMobile();openBooking()">Book Appointment</button>
     </div>
   </div>
   <div class="drawer-backdrop" onclick="closeMobile()"></div>
@@ -409,11 +504,11 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
   <div class="hero-bg-teal"></div>
   <div class="hero-inner">
     <div>
-      <div class="eyebrow">Gurgaon's premier physiotherapy clinic</div>
+      <div class="eyebrow">Gurgaon &amp; Patna's premier physiotherapy clinic</div>
       <h1 class="hero-h">Reclaim strength,<br><em>movement</em> &amp; life.</h1>
       <p class="hero-body">Expert physiotherapy from Dr. Satish — evidence-based rehabilitation tailored precisely to your recovery goals and lifestyle.</p>
       <div class="cta-row">
-        <button class="btn-primary">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
+        <button class="btn-primary" onclick="openBooking()">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
         <button class="btn-secondary">Meet Dr. Satish</button>
       </div>
       <div class="proof-row">
@@ -442,7 +537,7 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
           <div class="doc-role">MPT (Orthopaedics) · Dry Needling Certified</div>
           <div class="doc-meta">
             <div class="doc-meta-item"><i class="fa-solid fa-award"></i> 5+ yrs</div>
-            <div class="doc-meta-item"><i class="fa-solid fa-users"></i> 1300+ patients</div>
+            <div class="doc-meta-item"><i class="fa-solid fa-users"></i> 1,300+ patients</div>
           </div>
         </div>
       </div>
@@ -470,277 +565,125 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 
 <!-- SPECIALITIES -->
 <div id="services-section" style="background:#fff">
-<div class="section">
+<div class="wrap">
   <div class="s-head">
     <div class="eyebrow">Our specialities</div>
     <h2 class="s-title">Comprehensive physiotherapy services</h2>
     <p class="s-desc">From acute injuries to chronic conditions — specialised, evidence-based care across every discipline.</p>
   </div>
   <div class="spec-grid">
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=280&fit=crop" alt="Sports Rehabilitation" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Sports Rehab</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Sports Rehabilitation</div>
-        <div class="spec-desc">Full recovery from sports injuries — muscle strains, ligament tears, and athletic performance restoration.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Sports Rehabilitation')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=280&fit=crop" alt="Sports Rehabilitation" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Sports Rehab</div></div>
+      <div class="spec-body"><div class="spec-title">Sports Rehabilitation</div><div class="spec-desc">Full recovery from sports injuries — muscle strains, ligament tears, and athletic performance restoration.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&h=280&fit=crop" alt="Post-Surgery Recovery" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Post-Surgery</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Post-Surgery Recovery</div>
-        <div class="spec-desc">Structured post-operative protocols for orthopaedic and joint replacement patients.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Post-Surgery Recovery')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&h=280&fit=crop" alt="Post-Surgery Recovery" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Post-Surgery</div></div>
+      <div class="spec-body"><div class="spec-title">Post-Surgery Recovery</div><div class="spec-desc">Structured post-operative protocols for orthopaedic and joint replacement patients.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&h=280&fit=crop" alt="Back & Spine" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Back & Spine</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Back &amp; Spine Therapy</div>
-        <div class="spec-desc">Evidence-based treatment for chronic back pain, disc conditions, and postural imbalance.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Back & Spine Therapy')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=500&h=280&fit=crop" alt="Back & Spine" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Back &amp; Spine</div></div>
+      <div class="spec-body"><div class="spec-title">Back &amp; Spine Therapy</div><div class="spec-desc">Evidence-based treatment for chronic back pain, disc conditions, and postural imbalance.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&h=280&fit=crop" alt="Neurological Physio" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Neurological</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Neurological Physio</div>
-        <div class="spec-desc">Specialised rehabilitation for stroke recovery, Parkinson's disease, and neuropathies.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Neurological Physio')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&h=280&fit=crop" alt="Neurological Physio" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Neurological</div></div>
+      <div class="spec-body"><div class="spec-title">Neurological Physio</div><div class="spec-desc">Specialised rehabilitation for stroke recovery, Parkinson's disease, and neuropathies.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=500&h=280&fit=crop" alt="Paediatric Physio" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Paediatric</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Paediatric Physio</div>
-        <div class="spec-desc">Gentle, play-based therapy for children's developmental and postural conditions.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Paediatric Physio')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=500&h=280&fit=crop" alt="Paediatric Physio" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Paediatric</div></div>
+      <div class="spec-body"><div class="spec-title">Paediatric Physio</div><div class="spec-desc">Gentle, play-based therapy for children's developmental and postural conditions.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
-    <div class="spec-card">
-      <div class="spec-img">
-        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&h=280&fit=crop" alt="Geriatric Physio" loading="lazy">
-        <div class="spec-overlay"></div>
-        <div class="spec-badge">Geriatric</div>
-      </div>
-      <div class="spec-body">
-        <div class="spec-title">Geriatric Physio</div>
-        <div class="spec-desc">Improving balance, mobility, and independence for elderly patients through targeted exercise.</div>
-        <div class="spec-link">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-      </div>
+    <div class="spec-card" onclick="openBookingWithService('Geriatric Physio')">
+      <div class="spec-img"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&h=280&fit=crop" alt="Geriatric Physio" loading="lazy"><div class="spec-overlay"></div><div class="spec-badge">Geriatric</div></div>
+      <div class="spec-body"><div class="spec-title">Geriatric Physio</div><div class="spec-desc">Improving balance, mobility, and independence for elderly patients through targeted exercise.</div><div class="spec-link">Book now <i class="fa-solid fa-arrow-up-right-from-square"></i></div></div>
     </div>
   </div>
 </div>
 </div>
 
 <!-- TESTIMONIALS -->
-<div id="testi-section" class="section-bg">
-<div class="section">
+<div id="testi-section" class="wrap-bg" style="padding:72px 20px">
+<div style="max-width:1100px;margin:0 auto">
   <div class="s-head">
     <div class="eyebrow">Patient stories</div>
     <h2 class="s-title">Life-changing results</h2>
     <p class="s-desc">Real outcomes from real patients — verified reviews from our clinic.</p>
   </div>
-  <div class="testi-scroll-wrap">
-    <div class="testi-track" id="testi-track">
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"Dr. Sharma's rehabilitation plan had me back on the cricket field in six weeks. The communication and expertise throughout was exceptional."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Rahul Mehta" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Rahul Mehta</div>
-            <div class="testi-role">Professional Cricketer, Mumbai</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Shoulder rehabilitation</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"Three years of chronic lower back pain resolved in eight sessions. The personalised exercises and manual therapy were absolute game changers."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" alt="Sunita Kapoor" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Sunita Kapoor</div>
-            <div class="testi-role">Software Engineer, Noida</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Chronic back pain</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"Post knee-replacement recovery was faster than I expected. The team is professional, warm, and genuinely invested in your progress at every step."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&h=80&fit=crop&crop=face" alt="Vikram Singh" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Vikram Singh</div>
-            <div class="testi-role">Retired Army Officer, Delhi</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Knee replacement recovery</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"My son's developmental delays improved drastically after paediatric physiotherapy here. The therapists are incredibly patient and skilled with children."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=80&h=80&fit=crop&crop=face" alt="Anjali Bose" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Anjali Bose</div>
-            <div class="testi-role">Parent, Gurgaon</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Paediatric therapy</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star" style="color:#d1d5db">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"After my stroke, I had very limited mobility on my left side. The neurological physio program at OT Nest brought back 80% of my function within three months."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Deepak Rao" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Deepak Rao</div>
-            <div class="testi-role">Retired Teacher, Patna</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Post-stroke recovery</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div>
-          <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
-        </div>
-        <div class="testi-quote">"Frozen shoulder had been limiting my work for over a year. After 10 sessions, I have full range of motion back. Highly recommend Dr. Sharma's clinic."</div>
-        <div class="testi-footer">
-          <div class="testi-av"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face" alt="Priya Nair" loading="lazy" onerror="this.style.display='none'"></div>
-          <div>
-            <div class="testi-name">Priya Nair</div>
-            <div class="testi-role">Architect, Gurgaon</div>
-            <div class="testi-condition"><i class="fa-solid fa-bandage"></i> Frozen shoulder</div>
-          </div>
-        </div>
-      </div>
-
+  <div class="testi-track" id="testi-track">
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"Dr. Satish's rehabilitation plan had me back on the cricket field in six weeks. The communication and expertise throughout was exceptional."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Rahul Mehta" loading="lazy"></div><div><div class="testi-name">Rahul Mehta</div><div class="testi-role">Professional Cricketer, Mumbai</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Shoulder rehabilitation</div></div></div>
     </div>
-
-    <!-- Nav controls -->
-    <div class="testi-nav">
-      <button class="testi-btn" id="testi-prev" aria-label="Previous">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-      <div class="testi-dots" id="testi-dots">
-        <div class="t-dot active" onclick="scrollToCard(0)"></div>
-        <div class="t-dot" onclick="scrollToCard(1)"></div>
-        <div class="t-dot" onclick="scrollToCard(2)"></div>
-        <div class="t-dot" onclick="scrollToCard(3)"></div>
-        <div class="t-dot" onclick="scrollToCard(4)"></div>
-        <div class="t-dot" onclick="scrollToCard(5)"></div>
-      </div>
-      <button class="testi-btn" id="testi-next" aria-label="Next">
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"Three years of chronic lower back pain resolved in eight sessions. The personalised exercises and manual therapy were absolute game changers."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" alt="Sunita Kapoor" loading="lazy"></div><div><div class="testi-name">Sunita Kapoor</div><div class="testi-role">Software Engineer, Noida</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Chronic back pain</div></div></div>
     </div>
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"Post knee-replacement recovery was faster than I expected. The team is professional, warm, and genuinely invested in your progress at every step."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=80&h=80&fit=crop&crop=face" alt="Vikram Singh" loading="lazy"></div><div><div class="testi-name">Vikram Singh</div><div class="testi-role">Retired Army Officer, Delhi</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Knee replacement recovery</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"My son's developmental delays improved drastically after paediatric physiotherapy here. The therapists are incredibly patient and skilled with children."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=80&h=80&fit=crop&crop=face" alt="Anjali Bose" loading="lazy"></div><div><div class="testi-name">Anjali Bose</div><div class="testi-role">Parent, Gurgaon</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Paediatric therapy</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star" style="color:#d1d5db">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"After my stroke, I had very limited mobility on my left side. The neurological physio program at OT Nest brought back 80% of my function within three months."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Deepak Rao" loading="lazy"></div><div><div class="testi-name">Deepak Rao</div><div class="testi-role">Retired Teacher, Patna</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Post-stroke recovery</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-top"><div class="testi-stars"><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span></div><div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified</div></div>
+      <div class="testi-quote">"Frozen shoulder had been limiting my work for over a year. After 10 sessions, I have full range of motion back. Highly recommend Dr. Satish's clinic."</div>
+      <div class="testi-footer"><div class="testi-av"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face" alt="Priya Nair" loading="lazy"></div><div><div class="testi-name">Priya Nair</div><div class="testi-role">Architect, Gurgaon</div><div class="testi-condition"><i class="fa-solid fa-bandage"></i> Frozen shoulder</div></div></div>
+    </div>
+  </div>
+  <div class="testi-nav">
+    <button class="testi-btn" id="testi-prev"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="testi-dots" id="testi-dots">
+      <div class="t-dot active" onclick="scrollToCard(0)"></div>
+      <div class="t-dot" onclick="scrollToCard(1)"></div>
+      <div class="t-dot" onclick="scrollToCard(2)"></div>
+      <div class="t-dot" onclick="scrollToCard(3)"></div>
+      <div class="t-dot" onclick="scrollToCard(4)"></div>
+      <div class="t-dot" onclick="scrollToCard(5)"></div>
+    </div>
+    <button class="testi-btn" id="testi-next"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 </div>
 </div>
 
 <!-- LOCATIONS -->
-<div id="locations-section" style="background:#fff">
-<div class="section">
+<div id="locations-section" style="background:#fff;padding:72px 20px">
+<div style="max-width:1100px;margin:0 auto">
   <div class="s-head">
     <div class="eyebrow">Find us</div>
     <h2 class="s-title">Two convenient locations</h2>
     <p class="s-desc">Visit us at our Patna or Gurgaon clinics. Both fully equipped for advanced physiotherapy.</p>
   </div>
   <div class="loc-grid">
-
-    <!-- Patna -->
     <div class="loc-card" id="patna">
       <div class="loc-map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.0!2d85.1375645!3d25.5940853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed5844694b3b2f%3A0x5b3a1d7e6d4f98e1!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="Patna Clinic Location">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.0!2d85.1375645!3d25.5940853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed5844694b3b2f%3A0x5b3a1d7e6d4f98e1!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Patna Clinic Location"></iframe>
       </div>
       <div class="loc-info">
         <div class="loc-city"><i class="fa-solid fa-location-dot"></i> Patna Clinic</div>
-        <div class="loc-detail">
-          <strong>OT Nest — Patna</strong><br>
-          D-12, Boring Road, Near PMCH<br>
-          Patna – 800001, Bihar<br><br>
-          <strong>Hours:</strong> Mon–Sat, 8:00 am – 8:00 pm<br>
-          <strong>Phone:</strong> +91 75493 77608
-        </div>
-        <a href="https://maps.google.com/?q=Patna+Bihar+India" target="_blank" rel="noopener" class="btn-direction">
-          <i class="fa-solid fa-diamond-turn-right"></i> Get Directions
-        </a>
+        <div class="loc-detail"><strong>OT Nest — Patna</strong><br>D-12, Boring Road, Near PMCH<br>Patna – 800001, Bihar<br><br><strong>Hours:</strong> Mon–Sat, 8:00 am – 8:00 pm<br><strong>Phone:</strong> +91 75493 77608</div>
+        <a href="https://maps.google.com/?q=Patna+Bihar+India" target="_blank" rel="noopener" class="btn-direction"><i class="fa-solid fa-diamond-turn-right"></i> Get Directions</a>
       </div>
     </div>
-
-    <!-- Gurgaon -->
     <div class="loc-card" id="gurgaon">
       <div class="loc-map">
-        <iframe
-          src="https://maps.app.goo.gl/KRSFntMjpo4c689x5"
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="Gurgaon Clinic Location">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.0!2d77.0966!3d28.4324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18f6b7e5d6e5%3A0x3b4d8a2f1c7a9b3d!2sSector%2057%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1700000000001!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gurgaon Clinic Location"></iframe>
       </div>
       <div class="loc-info">
         <div class="loc-city"><i class="fa-solid fa-location-dot"></i> Gurgaon Clinic</div>
-        <div class="loc-detail">
-          <strong>OT Nest — Gurgaon</strong><br>
-          H No. 1042, Block G, Sector 57 <br>
-          Gurgaon – 122001, Haryana<br><br>
-          <strong>Hours:</strong> Mon–Sat, 8:00 am – 8:00 pm<br>
-          <strong>Phone:</strong> +91 75493 77608
-        </div>
-        <a href="https://maps.google.com/?q=Gurgaon+Haryana+India" target="_blank" rel="noopener" class="btn-direction">
-          <i class="fa-solid fa-diamond-turn-right"></i> Get Directions
-        </a>
+        <div class="loc-detail"><strong>OT Nest — Gurgaon</strong><br>H No. 1042, Block G, Sector 57<br>Gurgaon – 122001, Haryana<br><br><strong>Hours:</strong> Mon–Sat, 8:00 am – 8:00 pm<br><strong>Phone:</strong> +91 75493 77608</div>
+        <a href="https://maps.google.com/?q=Sector+57+Gurugram+Haryana+India" target="_blank" rel="noopener" class="btn-direction"><i class="fa-solid fa-diamond-turn-right"></i> Get Directions</a>
       </div>
     </div>
-
   </div>
 </div>
 </div>
@@ -749,135 +692,802 @@ h2.s-title{font-family:'Marcellus',serif;font-size:40px;color:var(--ink);line-he
 <footer class="footer">
   <div class="footer-cta">
     <div class="footer-cta-inner">
-      <div>
-        <h3>Ready to start your recovery?</h3>
-        <p>Same-day appointments · Most insurance accepted · Two clinic locations</p>
-      </div>
-      <button class="btn-cta-white">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:12px;margin-left:4px"></i></button>
+      <div><h3>Ready to start your recovery?</h3><p>Same-day appointments · Most insurance accepted · Two clinic locations</p></div>
+      <button class="btn-cta-white" onclick="openBooking()">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:12px;margin-left:4px"></i></button>
     </div>
   </div>
   <div class="footer-main">
     <div class="footer-brand">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <div class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></div>
-        <div>
-          <div class="logo-text">OT<span>Nest</span></div>
-          <div class="logo-sub" style="color:#475569">Physiotherapy Clinic</div>
-        </div>
+        <div><div class="logo-text">OT<span> Nest</span></div><div class="logo-sub" style="color:#475569">Physiotherapy Clinic</div></div>
       </div>
       <p>Evidence-based physiotherapy in Patna and Gurgaon. Helping patients regain strength, mobility, and quality of life since 2021.</p>
       <div class="footer-contact">
         <a href="tel:+917549377608"><i class="fa-solid fa-phone"></i> +91 75493 77608</a>
         <a href="mailto:otnest07@gmail.com"><i class="fa-regular fa-envelope"></i> otnest07@gmail.com</a>
       </div>
-      <!-- Flat social icons -->
       <div class="social-row">
         <a href="#" class="soc-btn soc-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/otnest7" class="soc-btn soc-ig" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.instagram.com/otnest7" class="soc-btn soc-ig" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="#" class="soc-btn soc-yt" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="+917549377608" class="soc-btn soc-wa" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://wa.me/917549377608" class="soc-btn soc-wa" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="#" class="soc-btn soc-li" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
       </div>
     </div>
-
-    <div class="footer-col">
-      <h5>Services</h5>
-      <ul>
-        <li><a href="#">Sports Rehabilitation</a></li>
-        <li><a href="#">Post-Surgery Recovery</a></li>
-        <li><a href="#">Back & Spine</a></li>
-        <li><a href="#">Neurological Physio</a></li>
-        <li><a href="#">Paediatric Physio</a></li>
-        <li><a href="#">Geriatric Physio</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h5>Clinic</h5>
-      <ul>
-        <li><a href="#">About Dr. Satish</a></li>
-        <li><a href="#">Testimonials</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h5>Locations</h5>
-      <ul>
-        <li><a href="#patna">Patna Clinic</a></li>
-        <li><a href="#gurgaon">Gurgaon Clinic</a></li>
-      </ul>
-      <h5 style="margin-top:20px">Legal</h5>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-      </ul>
-    </div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="#">Sports Rehabilitation</a></li><li><a href="#">Post-Surgery Recovery</a></li><li><a href="#">Back &amp; Spine</a></li><li><a href="#">Neurological Physio</a></li><li><a href="#">Paediatric Physio</a></li><li><a href="#">Geriatric Physio</a></li></ul></div>
+    <div class="footer-col"><h5>Clinic</h5><ul><li><a href="#">About Dr. Satish</a></li><li><a href="#">Testimonials</a></li><li><a href="#">Blog</a></li><li><a href="#">FAQ</a></li><li><a href="#">Pricing</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Locations</h5><ul><li><a href="#patna">Patna Clinic</a></li><li><a href="#gurgaon">Gurgaon Clinic</a></li></ul><h5 style="margin-top:20px">Legal</h5><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 OT Nest. All rights reserved.</span>
-    <div>
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-    </div>
+    <div><a href="#">Privacy</a><a href="#">Terms</a></div>
   </div>
 </footer>
 
+<!-- ═══════════════════════════════════
+     AUTH MODAL (Login / Register)
+═══════════════════════════════════ -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="auth-modal-title">Welcome back</div>
+      <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign in</button>
+        <button class="modal-tab" id="tab-register" onclick="switchAuthTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="auth-login">
+        <div class="form-group">
+          <label class="form-label">Phone number or Email</label>
+          <input class="form-input" id="login-phone" type="text" placeholder="+91 98765 43210 or email@example.com">
+          <div class="form-error" id="login-phone-err">Please enter a valid phone or email</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" id="login-pass" type="password" placeholder="Enter your password">
+          <div class="form-error" id="login-pass-err">Password is required</div>
+        </div>
+        <div style="text-align:right;margin-bottom:16px">
+          <a href="#" style="font-size:13px;color:var(--teal);font-weight:600" onclick="showToast('OTP sent to your registered number','success')">Forgot password?</a>
+        </div>
+        <button class="btn-submit" id="login-btn" onclick="doLogin()">
+          <span id="login-btn-text">Sign in</span>
+          <div class="spinner" id="login-spinner"></div>
+        </button>
+        <div class="form-divider">or continue with</div>
+        <button class="btn-social-login" onclick="socialLogin('Google')"><img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google"> Continue with Google</button>
+        <div style="text-align:center;font-size:13px;color:var(--ink-5);margin-top:12px">
+          Don't have an account? <a href="#" style="color:var(--teal);font-weight:600" onclick="switchAuthTab('register')">Register now</a>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="auth-register" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First name</label>
+            <input class="form-input" id="reg-fname" type="text" placeholder="Rahul">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input class="form-input" id="reg-lname" type="text" placeholder="Mehta">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone number</label>
+          <input class="form-input" id="reg-phone" type="tel" placeholder="+91 98765 43210">
+          <div class="form-hint">We'll send your booking confirmations here</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input class="form-input" id="reg-email" type="email" placeholder="rahul@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" id="reg-pass" type="password" placeholder="Min. 8 characters">
+          <div class="form-error" id="reg-pass-err">Password must be at least 8 characters</div>
+        </div>
+        <div class="wa-strip" onclick="openWhatsApp()">
+          <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="wa-text">
+            <strong>Connect on WhatsApp</strong>
+            <span>Get appointment reminders &amp; updates instantly</span>
+          </div>
+          <i class="fa-solid fa-chevron-right wa-arrow"></i>
+        </div>
+        <button class="btn-submit" id="register-btn" onclick="doRegister()">
+          <span id="register-btn-text">Create account</span>
+          <div class="spinner" id="register-spinner"></div>
+        </button>
+        <div style="text-align:center;font-size:12px;color:var(--ink-5);margin-top:12px">
+          By registering you agree to our <a href="#" style="color:var(--teal)">Terms of Service</a> and <a href="#" style="color:var(--teal)">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     BOOKING MODAL (Multi-step)
+═══════════════════════════════════ -->
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="booking-modal-title">Book Appointment</div>
+      <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Step indicator -->
+      <div class="step-indicator" id="step-indicator">
+        <div class="step-item active" id="step-ind-1">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="step-circle">1</div>
+            <span class="step-label">Service</span>
+          </div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-item" id="step-ind-2">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="step-circle">2</div>
+            <span class="step-label">Date &amp; Time</span>
+          </div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-item" id="step-ind-3">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="step-circle">3</div>
+            <span class="step-label">Details</span>
+          </div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-item" id="step-ind-4">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="step-circle">4</div>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: Service & Location -->
+      <div class="booking-step active" id="bstep-1">
+        <div class="form-group">
+          <label class="form-label">Select clinic location</label>
+          <select class="form-input" id="book-location">
+            <option value="gurgaon">Gurgaon — Sector 57, H No. 1042</option>
+            <option value="patna">Patna — Boring Road, Near PMCH</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Select service</label>
+          <div class="service-options" id="service-options">
+            <div class="service-opt" onclick="selectService(this,'Sports Rehabilitation','₹800')">
+              <div class="service-opt-icon"><i class="fa-solid fa-person-running"></i></div>
+              <div><div class="service-opt-name">Sports Rehab</div><div class="service-opt-price">₹800 / session</div></div>
+            </div>
+            <div class="service-opt" onclick="selectService(this,'Post-Surgery Recovery','₹900')">
+              <div class="service-opt-icon"><i class="fa-solid fa-kit-medical"></i></div>
+              <div><div class="service-opt-name">Post-Surgery</div><div class="service-opt-price">₹900 / session</div></div>
+            </div>
+            <div class="service-opt" onclick="selectService(this,'Back & Spine Therapy','₹750')">
+              <div class="service-opt-icon"><i class="fa-solid fa-bone"></i></div>
+              <div><div class="service-opt-name">Back &amp; Spine</div><div class="service-opt-price">₹750 / session</div></div>
+            </div>
+            <div class="service-opt" onclick="selectService(this,'Neurological Physio','₹1000')">
+              <div class="service-opt-icon"><i class="fa-solid fa-brain"></i></div>
+              <div><div class="service-opt-name">Neurological</div><div class="service-opt-price">₹1,000 / session</div></div>
+            </div>
+            <div class="service-opt" onclick="selectService(this,'Paediatric Physio','₹700')">
+              <div class="service-opt-icon"><i class="fa-solid fa-child"></i></div>
+              <div><div class="service-opt-name">Paediatric</div><div class="service-opt-price">₹700 / session</div></div>
+            </div>
+            <div class="service-opt" onclick="selectService(this,'Geriatric Physio','₹750')">
+              <div class="service-opt-icon"><i class="fa-solid fa-person-cane"></i></div>
+              <div><div class="service-opt-name">Geriatric</div><div class="service-opt-price">₹750 / session</div></div>
+            </div>
+          </div>
+          <div class="form-error" id="service-err">Please select a service</div>
+        </div>
+        <button class="btn-submit" onclick="goToStep(2)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- STEP 2: Date & Time slot -->
+      <div class="booking-step" id="bstep-2">
+        <div class="form-group">
+          <label class="form-label">Select date</label>
+          <div class="date-grid" id="date-grid"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Select time slot <span id="selected-date-label" style="font-weight:400;color:var(--ink-5)"></span></label>
+          <div class="slot-grid" id="slot-grid"></div>
+          <div class="form-error" id="slot-err">Please select a date and time slot</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-submit" style="background:var(--ink-9);color:var(--ink-3)" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-submit" onclick="goToStep(3)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Patient details -->
+      <div class="booking-step" id="bstep-3">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First name</label>
+            <input class="form-input" id="p-fname" type="text" placeholder="Rahul">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input class="form-input" id="p-lname" type="text" placeholder="Mehta">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone number</label>
+          <input class="form-input" id="p-phone" type="tel" placeholder="+91 98765 43210">
+          <div class="form-error" id="p-phone-err">Please enter a valid phone number</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input class="form-input" id="p-email" type="email" placeholder="rahul@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Brief description of your concern <span style="font-weight:400;color:var(--ink-5)">(optional)</span></label>
+          <textarea class="form-input" id="p-notes" rows="3" placeholder="e.g. Lower back pain for 3 months, aggravated by sitting..." style="resize:vertical"></textarea>
+        </div>
+        <div class="wa-strip" onclick="openWhatsApp()">
+          <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="wa-text">
+            <strong>Connect on WhatsApp</strong>
+            <span>Receive your booking confirmation instantly</span>
+          </div>
+          <i class="fa-solid fa-chevron-right wa-arrow"></i>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-submit" style="background:var(--ink-9);color:var(--ink-3)" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-submit" onclick="goToStep(4)">Review &amp; Pay <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Payment -->
+      <div class="booking-step" id="bstep-4">
+        <!-- Summary -->
+        <div class="summary-card" id="booking-summary"></div>
+
+        <!-- Payment method -->
+        <div class="form-group">
+          <label class="form-label">Select payment method</label>
+          <div class="pay-methods">
+            <div class="pay-method selected" id="pay-online" onclick="selectPayMethod('online')">
+              <i class="fa-solid fa-credit-card" style="color:var(--teal)"></i>
+              <div class="pay-method-name">Pay Online</div>
+              <div class="pay-method-desc">UPI, Cards, Net Banking</div>
+            </div>
+            <div class="pay-method" id="pay-clinic" onclick="selectPayMethod('clinic')">
+              <i class="fa-solid fa-hospital" style="color:var(--ink-4)"></i>
+              <div class="pay-method-name">Pay at Clinic</div>
+              <div class="pay-method-desc">Cash or card on visit</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="razorpay-note" style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#92400e;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px">
+          <i class="fa-solid fa-lock" style="color:#d97706;margin-top:1px;flex-shrink:0"></i>
+          <div>Secured by <strong>Razorpay</strong>. Supports UPI, Debit/Credit cards, Net Banking &amp; Wallets. Your payment info is never stored on our servers.</div>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          <button class="btn-submit" style="background:var(--ink-9);color:var(--ink-3);flex:0 0 auto;padding:13px 18px" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="btn-submit" id="pay-btn" onclick="initiatePayment()" style="flex:1">
+            <span id="pay-btn-text"><i class="fa-solid fa-lock" style="font-size:13px"></i> Confirm &amp; Pay</span>
+            <div class="spinner" id="pay-spinner"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div class="booking-step" id="bstep-success">
+        <div class="success-screen">
+          <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="success-title">Appointment Confirmed!</div>
+          <div class="success-sub">Your appointment has been booked successfully. A confirmation has been sent to your phone and email.</div>
+          <div class="booking-ref">
+            <strong id="ref-number">REF: OTN-2025-0001</strong>
+            <span id="ref-details"></span>
+          </div>
+          <div class="wa-strip" onclick="openWhatsApp()">
+            <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="wa-text">
+              <strong>Chat with us on WhatsApp</strong>
+              <span>Questions? We're here to help before your visit</span>
+            </div>
+            <i class="fa-solid fa-chevron-right wa-arrow"></i>
+          </div>
+          <button class="btn-submit" onclick="closeBookingModal()" style="margin-top:8px">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check" id="toast-icon"></i><span id="toast-msg"></span></div>
+
+<!-- WhatsApp FAB -->
+<button class="wa-fab" onclick="openWhatsApp()" aria-label="Chat on WhatsApp">
+  <div class="wa-fab-pulse"></div>
+  <i class="fa-brands fa-whatsapp"></i>
+</button>
+
 <script>
-// Mobile nav toggle
+// ─── STATE ───
+const APP = {
+  user: null,         // logged-in user object
+  booking: {
+    service: null,
+    price: null,
+    location: null,
+    date: null,
+    slot: null,
+    payMethod: 'online'
+  },
+  currentStep: 1,
+  // Razorpay key — replace with your actual test/live key
+  RAZORPAY_KEY: 'rzp_test_YOUR_KEY_HERE',
+  WHATSAPP_NUMBER: '917549377608'
+}
+
+// ─── UTILITY ───
+function scrollTop(){ window.scrollTo({top:0,behavior:'smooth'}) }
+
+function showToast(msg, type='info'){
+  const t = document.getElementById('toast')
+  const icon = document.getElementById('toast-icon')
+  document.getElementById('toast-msg').textContent = msg
+  t.className = 'toast show ' + (type==='success'?'success':type==='error'?'error':'')
+  const icons = {success:'fa-circle-check', error:'fa-circle-xmark', info:'fa-circle-info'}
+  icon.className = 'fa-solid ' + (icons[type]||icons.info)
+  setTimeout(()=>{ t.className='toast' }, 3400)
+}
+
+function generateRef(){
+  return 'OTN-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000)
+}
+
+// ─── NAV ───
 const hamburger = document.getElementById('hamburger-btn')
-const drawer = document.getElementById('mobile-drawer')
-const hamIcon = document.getElementById('ham-icon')
+const drawer    = document.getElementById('mobile-drawer')
+const hamIcon   = document.getElementById('ham-icon')
 
-hamburger.addEventListener('click', () => {
-  const isOpen = drawer.classList.toggle('open')
-  hamIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
-  document.body.style.overflow = isOpen ? 'hidden' : ''
+hamburger.addEventListener('click', ()=>{
+  const open = drawer.classList.toggle('open')
+  hamIcon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
+  document.body.style.overflow = open ? 'hidden' : ''
 })
-
-function closeMobile() {
+function closeMobile(){
   drawer.classList.remove('open')
   hamIcon.className = 'fa-solid fa-bars'
   document.body.style.overflow = ''
 }
-
-// Services submenu in drawer
 let svcOpen = false
-function toggleServices() {
+function toggleServices(){
   svcOpen = !svcOpen
   document.getElementById('svc-children').classList.toggle('open', svcOpen)
   document.getElementById('svc-chevron').style.transform = svcOpen ? 'rotate(180deg)' : ''
 }
-
-// Scroll nav shadow
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', ()=>{
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20)
-}, { passive: true })
+}, {passive:true})
 
-// Testimonial scroll
+// ─── TESTIMONIALS ───
 const track = document.getElementById('testi-track')
-const dots = document.querySelectorAll('.t-dot')
-const cards = track.querySelectorAll('.testi-card')
-const cardW = 338 // card width + gap
+const dots  = document.querySelectorAll('.t-dot')
+const cardW = 338
+function scrollToCard(idx){ track.scrollTo({left:idx*cardW, behavior:'smooth'}) }
+document.getElementById('testi-prev').addEventListener('click', ()=> track.scrollBy({left:-cardW,behavior:'smooth'}))
+document.getElementById('testi-next').addEventListener('click', ()=> track.scrollBy({left:cardW,behavior:'smooth'}))
+track.addEventListener('scroll', ()=>{
+  const idx = Math.round(track.scrollLeft/cardW)
+  dots.forEach((d,i)=> d.classList.toggle('active', i===idx))
+}, {passive:true})
 
-function scrollToCard(idx) {
-  track.scrollTo({ left: idx * cardW, behavior: 'smooth' })
+// ─── AUTH MODAL ───
+function openAuthModal(){
+  document.getElementById('auth-modal').classList.add('open')
+  document.body.style.overflow = 'hidden'
+}
+function closeAuthModal(){
+  document.getElementById('auth-modal').classList.remove('open')
+  document.body.style.overflow = ''
+}
+document.getElementById('auth-modal').addEventListener('click', e=>{
+  if(e.target === document.getElementById('auth-modal')) closeAuthModal()
+})
+function switchAuthTab(tab){
+  const isLogin = tab==='login'
+  document.getElementById('tab-login').classList.toggle('active', isLogin)
+  document.getElementById('tab-register').classList.toggle('active', !isLogin)
+  document.getElementById('auth-login').style.display = isLogin ? 'block' : 'none'
+  document.getElementById('auth-register').style.display = isLogin ? 'none' : 'block'
+  document.getElementById('auth-modal-title').textContent = isLogin ? 'Welcome back' : 'Create your account'
 }
 
-document.getElementById('testi-prev').addEventListener('click', () => {
-  track.scrollBy({ left: -cardW, behavior: 'smooth' })
-})
-document.getElementById('testi-next').addEventListener('click', () => {
-  track.scrollBy({ left: cardW, behavior: 'smooth' })
+function setLoading(btnId, spinnerId, textId, loading, text=''){
+  const btn = document.getElementById(btnId)
+  const sp  = document.getElementById(spinnerId)
+  const tx  = document.getElementById(textId)
+  btn.disabled = loading
+  sp.style.display = loading ? 'block' : 'none'
+  if(text && tx) tx.textContent = loading ? '' : text
+}
+
+function doLogin(){
+  const phone = document.getElementById('login-phone').value.trim()
+  const pass  = document.getElementById('login-pass').value.trim()
+  let ok = true
+  if(!phone){ document.getElementById('login-phone-err').classList.add('show'); ok=false }
+  else document.getElementById('login-phone-err').classList.remove('show')
+  if(!pass){ document.getElementById('login-pass-err').classList.add('show'); ok=false }
+  else document.getElementById('login-pass-err').classList.remove('show')
+  if(!ok) return
+
+  setLoading('login-btn','login-spinner','login-btn-text',true)
+  setTimeout(()=>{
+    setLoading('login-btn','login-spinner','login-btn-text',false,'Sign in')
+    // Simulate successful login
+    const name = phone.includes('@') ? phone.split('@')[0] : 'Patient'
+    loginUser({name, phone, email: phone.includes('@') ? phone : ''})
+    closeAuthModal()
+    showToast('Welcome back, ' + name + '!', 'success')
+  }, 1400)
+}
+
+function doRegister(){
+  const fname = document.getElementById('reg-fname').value.trim()
+  const phone = document.getElementById('reg-phone').value.trim()
+  const pass  = document.getElementById('reg-pass').value.trim()
+  if(pass.length < 8){ document.getElementById('reg-pass-err').classList.add('show'); return }
+  else document.getElementById('reg-pass-err').classList.remove('show')
+
+  setLoading('register-btn','register-spinner','register-btn-text',true)
+  setTimeout(()=>{
+    setLoading('register-btn','register-spinner','register-btn-text',false,'Create account')
+    loginUser({name: fname || 'Patient', phone, email: document.getElementById('reg-email').value})
+    closeAuthModal()
+    showToast('Account created! Welcome to OT Nest.', 'success')
+    // Auto-open WhatsApp
+    setTimeout(()=> openWhatsApp(), 600)
+  }, 1600)
+}
+
+function socialLogin(provider){
+  setLoading('login-btn','login-spinner','login-btn-text',true)
+  setTimeout(()=>{
+    setLoading('login-btn','login-spinner','login-btn-text',false,'Sign in')
+    loginUser({name:'Patient', phone:'', email:''})
+    closeAuthModal()
+    showToast('Signed in with ' + provider, 'success')
+  }, 1200)
+}
+
+function loginUser(userData){
+  APP.user = userData
+  const initials = userData.name.slice(0,2).toUpperCase()
+  document.getElementById('nav-user-area').innerHTML =
+    `<div class="user-chip" onclick="openAuthModal()">
+       <div class="user-chip-av">${initials}</div>
+       <span class="user-chip-name">${userData.name.split(' ')[0]}</span>
+     </div>`
+}
+
+// ─── BOOKING MODAL ───
+function openBooking(){
+  if(!APP.user){
+    // Prompt login first then re-open booking
+    openAuthModal()
+    // Once auth modal closes we re-check — simplified demo: just open booking
+    setTimeout(()=>{
+      if(!APP.user) loginUser({name:'Guest Patient', phone:'', email:''})
+      _doOpenBooking()
+    }, 100)
+    return
+  }
+  _doOpenBooking()
+}
+
+function openBookingWithService(serviceName){
+  APP.booking.service = null // reset so pre-select triggers
+  openBooking()
+  // Pre-select after modal renders
+  setTimeout(()=>{
+    const opts = document.querySelectorAll('.service-opt')
+    const serviceMap = {
+      'Sports Rehabilitation':['Sports Rehab','₹800'],
+      'Post-Surgery Recovery':['Post-Surgery','₹900'],
+      'Back & Spine Therapy':['Back &amp; Spine','₹750'],
+      'Neurological Physio':['Neurological','₹1,000'],
+      'Paediatric Physio':['Paediatric','₹700'],
+      'Geriatric Physio':['Geriatric','₹750'],
+    }
+    const svcShort = serviceName.replace(' Therapy','').replace('Back & Spine','Back &amp; Spine')
+    opts.forEach(opt=>{
+      const name = opt.querySelector('.service-opt-name').textContent.trim()
+      const price = opt.querySelector('.service-opt-price').textContent.replace(' / session','').trim()
+      if(name.replace('&amp;','&') === svcShort.replace('&amp;','&') || serviceName.includes(name)){
+        selectService(opt, serviceName, serviceMap[serviceName] ? serviceMap[serviceName][1] : price)
+      }
+    })
+  }, 150)
+}
+
+function _doOpenBooking(){
+  document.getElementById('booking-modal').classList.add('open')
+  document.body.style.overflow = 'hidden'
+  goToStep(1, true)
+  buildDateGrid()
+}
+
+function closeBookingModal(){
+  document.getElementById('booking-modal').classList.remove('open')
+  document.body.style.overflow = ''
+  // reset state
+  APP.booking = {service:null,price:null,location:null,date:null,slot:null,payMethod:'online'}
+}
+document.getElementById('booking-modal').addEventListener('click', e=>{
+  if(e.target === document.getElementById('booking-modal')) closeBookingModal()
 })
 
-track.addEventListener('scroll', () => {
-  const idx = Math.round(track.scrollLeft / cardW)
-  dots.forEach((d, i) => d.classList.toggle('active', i === idx))
-}, { passive: true })
+// ─── BOOKING STEPS ───
+function goToStep(n, skipValidation=false){
+  if(!skipValidation){
+    if(APP.currentStep===1 && n===2 && !APP.booking.service){
+      document.getElementById('service-err').style.display='block'
+      showToast('Please select a service to continue','error')
+      return
+    }
+    if(APP.currentStep===2 && n===3 && (!APP.booking.date || !APP.booking.slot)){
+      document.getElementById('slot-err').style.display='block'
+      showToast('Please select a date and time','error')
+      return
+    }
+    if(APP.currentStep===3 && n===4){
+      const phone = document.getElementById('p-phone').value.trim()
+      if(!phone || phone.length < 10){
+        document.getElementById('p-phone-err').style.display='block'
+        showToast('Please enter a valid phone number','error')
+        return
+      }
+      document.getElementById('p-phone-err').style.display='none'
+      // Pre-fill patient data from form
+      APP.booking.patient = {
+        name: (document.getElementById('p-fname').value + ' ' + document.getElementById('p-lname').value).trim() || 'Patient',
+        phone: phone,
+        email: document.getElementById('p-email').value,
+        notes: document.getElementById('p-notes').value
+      }
+      buildSummary()
+    }
+  }
+
+  // Hide all steps
+  document.querySelectorAll('.booking-step').forEach(s=> s.classList.remove('active'))
+  document.getElementById('bstep-'+(n==='success'?'success':n)).classList.add('active')
+  APP.currentStep = n
+
+  // Update step indicators
+  if(typeof n === 'number'){
+    for(let i=1;i<=4;i++){
+      const el = document.getElementById('step-ind-'+i)
+      if(!el) continue
+      el.classList.remove('active','done')
+      if(i < n) el.classList.add('done')
+      else if(i === n) el.classList.add('active')
+    }
+    // Update modal title
+    const titles = {1:'Select Service',2:'Choose Date & Time',3:'Your Details',4:'Review & Pay'}
+    document.getElementById('booking-modal-title').textContent = titles[n] || 'Book Appointment'
+  }
+
+  // Scroll modal body to top
+  document.querySelector('#booking-modal .modal-box').scrollTop = 0
+}
+
+function selectService(el, name, price){
+  document.querySelectorAll('.service-opt').forEach(o=> o.classList.remove('selected'))
+  el.classList.add('selected')
+  APP.booking.service = name
+  APP.booking.price = price
+  document.getElementById('service-err').style.display = 'none'
+}
+
+// ─── DATE GRID ───
+function buildDateGrid(){
+  const grid = document.getElementById('date-grid')
+  grid.innerHTML = ''
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  const today = new Date()
+  for(let i=0;i<8;i++){
+    const d = new Date(today)
+    d.setDate(today.getDate()+i)
+    const isSunday = d.getDay()===0
+    const chip = document.createElement('div')
+    chip.className = 'date-chip' + (isSunday ? ' disabled' : '')
+    chip.innerHTML = `<div class="date-chip-day">${days[d.getDay()]}</div><div class="date-chip-num">${d.getDate()}</div><div class="date-chip-month">${months[d.getMonth()]}</div>`
+    if(!isSunday){
+      chip.addEventListener('click', ()=>{
+        document.querySelectorAll('.date-chip').forEach(c=> c.classList.remove('selected'))
+        chip.classList.add('selected')
+        APP.booking.date = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
+        document.getElementById('selected-date-label').textContent = '— ' + APP.booking.date
+        buildSlotGrid(i)
+        APP.booking.slot = null
+        document.getElementById('slot-err').style.display='none'
+      })
+    }
+    grid.appendChild(chip)
+  }
+}
+
+function buildSlotGrid(dayOffset){
+  const grid = document.getElementById('slot-grid')
+  grid.innerHTML = ''
+  const allSlots = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM']
+  // Randomly mark some as booked (simulate real data)
+  const bookedIdxs = [1,4,7].map(n=>(n+dayOffset)%allSlots.length)
+  allSlots.forEach((slot,i)=>{
+    const chip = document.createElement('div')
+    const isBooked = bookedIdxs.includes(i)
+    chip.className = 'slot-chip' + (isBooked ? ' booked' : '')
+    chip.textContent = slot
+    if(!isBooked){
+      chip.addEventListener('click', ()=>{
+        document.querySelectorAll('.slot-chip').forEach(c=> c.classList.remove('selected'))
+        chip.classList.add('selected')
+        APP.booking.slot = slot
+        document.getElementById('slot-err').style.display='none'
+      })
+    }
+    grid.appendChild(chip)
+  })
+}
+
+// ─── PAYMENT METHOD ───
+function selectPayMethod(method){
+  APP.booking.payMethod = method
+  document.getElementById('pay-online').classList.toggle('selected', method==='online')
+  document.getElementById('pay-clinic').classList.toggle('selected', method==='clinic')
+  document.getElementById('razorpay-note').style.display = method==='online' ? 'flex' : 'none'
+  document.getElementById('pay-btn').querySelector('#pay-btn-text').innerHTML =
+    method==='online'
+      ? '<i class="fa-solid fa-lock" style="font-size:13px"></i> Confirm &amp; Pay'
+      : '<i class="fa-solid fa-hospital" style="font-size:13px"></i> Confirm Appointment'
+}
+
+// ─── SUMMARY CARD ───
+function buildSummary(){
+  const b = APP.booking
+  const loc = document.getElementById('book-location').value
+  b.location = loc === 'gurgaon' ? 'Gurgaon — Sector 57' : 'Patna — Boring Road'
+  document.getElementById('booking-summary').innerHTML = `
+    <div class="summary-row"><span>Service</span><span>${b.service||'—'}</span></div>
+    <div class="summary-row"><span>Location</span><span>${b.location}</span></div>
+    <div class="summary-row"><span>Date</span><span>${b.date||'—'}</span></div>
+    <div class="summary-row"><span>Time</span><span>${b.slot||'—'}</span></div>
+    <div class="summary-row"><span>Patient</span><span>${b.patient?.name||'—'}</span></div>
+    <div class="summary-row"><span>Total</span><span style="color:var(--teal)">${b.price||'—'}</span></div>
+  `
+}
+
+// ─── RAZORPAY PAYMENT ───
+function initiatePayment(){
+  const b = APP.booking
+  if(b.payMethod === 'clinic'){
+    // Free booking — no payment
+    setLoading('pay-btn','pay-spinner','pay-btn-text',true)
+    setTimeout(()=>{
+      setLoading('pay-btn','pay-spinner','pay-btn-text',false)
+      confirmBooking('PAY_AT_CLINIC')
+    }, 1200)
+    return
+  }
+
+  // Extract numeric amount (₹800 -> 800)
+  const amount = parseInt((b.price||'500').replace(/[^0-9]/g,'')) * 100 // paise
+
+  setLoading('pay-btn','pay-spinner','pay-btn-text',true)
+
+  // Simulate order creation (in production: call your backend /api/payment/create-order)
+  setTimeout(()=>{
+    setLoading('pay-btn','pay-spinner','pay-btn-text',false,'Confirm & Pay')
+
+    const options = {
+      key: APP.RAZORPAY_KEY,
+      amount: amount,
+      currency: 'INR',
+      name: 'OT Nest',
+      description: b.service + ' — ' + b.date + ' ' + b.slot,
+      image: '',
+      // order_id: 'order_xxxx', // from your backend
+      prefill: {
+        name:  b.patient?.name || '',
+        email: b.patient?.email || '',
+        contact: b.patient?.phone || ''
+      },
+      notes: {
+        service: b.service,
+        date: b.date,
+        slot: b.slot,
+        location: b.location
+      },
+      theme: { color: '#0d9488' },
+      modal: {
+        ondismiss: ()=> showToast('Payment cancelled', 'info')
+      },
+      handler: function(response){
+        // Payment successful
+        confirmBooking(response.razorpay_payment_id || 'DEMO_' + generateRef())
+        showToast('Payment successful!', 'success')
+        // Send WhatsApp confirmation
+        setTimeout(()=> sendWhatsAppConfirmation(), 800)
+      }
+    }
+
+    try {
+      const rzp = new Razorpay(options)
+      rzp.on('payment.failed', ()=> showToast('Payment failed. Please try again.', 'error'))
+      rzp.open()
+    } catch(e){
+      // Razorpay not available (demo mode — no key)
+      showToast('Demo mode: Razorpay key not configured. Booking confirmed!', 'info')
+      confirmBooking('DEMO_' + generateRef())
+      setTimeout(()=> sendWhatsAppConfirmation(), 800)
+    }
+  }, 900)
+}
+
+function confirmBooking(paymentId){
+  const b = APP.booking
+  const ref = generateRef()
+  document.getElementById('ref-number').textContent = 'Ref: ' + ref
+  document.getElementById('ref-details').innerHTML =
+    `${b.service}<br>${b.date}, ${b.slot}<br>${b.location}<br>Payment ID: ${paymentId}`
+  goToStep('success')
+  document.getElementById('step-indicator').style.display = 'none'
+}
+
+// ─── WHATSAPP ───
+function openWhatsApp(){
+  const b = APP.booking
+  let msg = 'Hello OT Nest! I would like to enquire about physiotherapy services.'
+  if(b.service && b.date && b.slot){
+    msg = `Hello OT Nest! I have booked an appointment:\n*Service:* ${b.service}\n*Date:* ${b.date}\n*Time:* ${b.slot}\n*Location:* ${b.location||'Gurgaon'}\nPlease confirm.`
+  }
+  const url = `https://wa.me/${APP.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
+  window.open(url, '_blank')
+}
+
+function sendWhatsAppConfirmation(){
+  const b = APP.booking
+  const msg = `*OT Nest Appointment Confirmed!*\n\nService: ${b.service}\nDate: ${b.date}\nTime: ${b.slot}\nLocation: ${b.location}\nPatient: ${b.patient?.name}\n\nSee you soon! 🙏`
+  const url = `https://wa.me/${APP.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
+  window.open(url, '_blank')
+}
+
+// Pre-fill patient details if user is logged in
+document.getElementById('booking-modal').addEventListener('transitionend', ()=>{
+  if(APP.user && document.getElementById('p-fname')){
+    const parts = (APP.user.name||'').split(' ')
+    if(parts[0]) document.getElementById('p-fname').value = parts[0]
+    if(parts[1]) document.getElementById('p-lname').value = parts[1]
+    if(APP.user.phone) document.getElementById('p-phone').value = APP.user.phone
+    if(APP.user.email) document.getElementById('p-email').value = APP.user.email
+  }
+})
 </script>
 </body>
 </html>
