@@ -811,7 +811,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <i class="fa-regular fa-circle-user"></i>
         </button>
       </div>
-      <button class="btn-book-nav" onclick="openBooking()">Book Appointment</button>
+      <button class="btn-book-nav" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/otnest07/30min?hide_gdpr_banner=1'});return false;">Book Appointment</button>
       <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars" id="ham-icon"></i></button>
     </div>
   </div>
@@ -2103,5 +2103,12 @@ function sendWAConfirm(){
 // ══════════════════════════════════════
 navTo('home')
 </script>
+
+   <!-- Calendly Popup -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+
+<script src="https://assets.calendly.com/assets/external/widget.js"
+type="text/javascript"
+async></script>
 </body>
 </html>
