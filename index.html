@@ -8,6 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+   html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Calendly overflow fix */
+.calendly-inline-widget,
+.calendly-inline-widget iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Appointment / booking section background */
+#booking-section,
+.booking-section,
+.calendly-section {
+  background: #0f172a !important;
+}
 <style>
 /* ══════════════════════════════════════
    DESIGN TOKENS & RESET
