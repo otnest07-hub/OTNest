@@ -13,7 +13,13 @@
   max-width: 100%;
 }
 
-/* Calendly overflow fix */
+/* Prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Calendly responsive fix */
 .calendly-inline-widget,
 .calendly-inline-widget iframe {
   width: 100% !important;
@@ -21,7 +27,7 @@
   overflow: hidden !important;
 }
 
-/* Appointment / booking section background */
+/* Booking section background */
 #booking-section,
 .booking-section,
 .calendly-section {
