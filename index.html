@@ -2104,11 +2104,33 @@ function sendWAConfirm(){
 navTo('home')
 </script>
 
-   <!-- Calendly Popup -->
+<!-- Calendly widget -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
 <script src="https://assets.calendly.com/assets/external/widget.js"
 type="text/javascript"
 async></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const buttons = document.querySelectorAll('[onclick="openBooking()"]');
+
+    buttons.forEach(button => {
+        button.removeAttribute("onclick");
+
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            Calendly.initPopupWidget({
+                url: 'https://calendly.com/otnest07/30min?hide_gdpr_banner=1'
+            });
+
+            return false;
+        });
+    });
+
+});
+</script>
 </body>
 </html>
