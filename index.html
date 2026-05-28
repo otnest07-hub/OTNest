@@ -811,7 +811,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <i class="fa-regular fa-circle-user"></i>
         </button>
       </div>
-      <button class="btn-book-nav" onclick="openBooking()">Book Appointment</button>
+      <button class="btn-book-nav" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
       <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars" id="ham-icon"></i></button>
     </div>
   </div>
@@ -854,7 +854,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
     <button class="mob-link" id="ml-contact" onclick="navTo('contact');closeMob()"><span><i class="fa-regular fa-envelope" style="margin-right:10px;color:var(--ink-6)"></i>Contact</span></button>
     <div class="mob-actions">
       <button class="btn-outline-mob" onclick="closeMob();openAuthModal()"><i class="fa-regular fa-circle-user"></i> Sign in / Register</button>
-      <button class="btn-teal-mob"    onclick="closeMob();openBooking()">Book Appointment</button>
+      <button class="btn-teal-mob"    onclick="closeMob();document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
     </div>
   </div>
   <div class="mob-backdrop" onclick="closeMob()"></div>
@@ -874,7 +874,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
         <h1 class="hero-h">Reclaim strength,<br><em>movement</em> &amp; life.</h1>
         <p class="hero-body">Expert physiotherapy from Dr. Satish — evidence-based rehabilitation tailored precisely to your recovery goals and lifestyle.</p>
         <div class="cta-row">
-          <button class="btn-p" onclick="openBooking()">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
+          <button class="btn-p" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
           <button class="btn-s" onclick="navTo('about')">Meet Dr. Satish</button>
         </div>
         <div class="proof-row">
@@ -1044,7 +1044,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <div class="tl-item"><div class="tl-dot">📍</div><div><div class="tl-year">2023</div><div class="tl-text">Expanded to Patna</div><div class="tl-sub">Second clinic opened near PMCH, Boring Road</div></div></div>
         </div>
         <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-          <button class="btn-p" onclick="openBooking()">Book appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
+          <button class="btn-p" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book appointment <i class="fa-solid fa-arrow-right" style="font-size:13px"></i></button>
           <button class="btn-s" onclick="navTo('contact')">Contact us</button>
         </div>
       </div>
@@ -1063,12 +1063,12 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
   </div>
   <div class="section">
     <div class="svc-big-grid">
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=300&fit=crop" alt="Sports Rehab" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Sports Rehab</div></div><div class="svc-big-body"><div class="svc-big-title">Sports Rehabilitation</div><div class="svc-big-desc">Expert recovery from sports injuries — muscle strains, ligament tears, ACL reconstruction, and athletic performance restoration.</div><div class="svc-features"><span class="svc-feature">Muscle strains</span><span class="svc-feature">Ligament tears</span><span class="svc-feature">ACL recovery</span><span class="svc-feature">Return to sport</span></div><div class="svc-price-row"><div><div class="svc-price">₹800</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Sports Rehabilitation','₹800')">Book now</button></div></div></div>
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=300&fit=crop" alt="Post-Surgery" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Post-Surgery</div></div><div class="svc-big-body"><div class="svc-big-title">Post-Surgery Recovery</div><div class="svc-big-desc">Structured rehabilitation protocols for patients recovering from orthopaedic surgeries, joint replacements, and fracture repair.</div><div class="svc-features"><span class="svc-feature">Joint replacement</span><span class="svc-feature">Fracture care</span><span class="svc-feature">Spine surgery</span><span class="svc-feature">Shoulder repair</span></div><div class="svc-price-row"><div><div class="svc-price">₹900</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Post-Surgery Recovery','₹900')">Book now</button></div></div></div>
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=300&fit=crop" alt="Back Spine" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Back &amp; Spine</div></div><div class="svc-big-body"><div class="svc-big-title">Back &amp; Spine Therapy</div><div class="svc-big-desc">Treatment for chronic back pain, disc conditions (herniation, bulge), sciatica, and posture-related complaints.</div><div class="svc-features"><span class="svc-feature">Lower back pain</span><span class="svc-feature">Disc herniation</span><span class="svc-feature">Sciatica</span><span class="svc-feature">Posture correction</span></div><div class="svc-price-row"><div><div class="svc-price">₹750</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Back & Spine Therapy','₹750')">Book now</button></div></div></div>
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&h=300&fit=crop" alt="Neuro" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Neurological</div></div><div class="svc-big-body"><div class="svc-big-title">Neurological Physio</div><div class="svc-big-desc">Specialised rehabilitation for stroke, Parkinson's disease, multiple sclerosis, and peripheral neuropathy recovery.</div><div class="svc-features"><span class="svc-feature">Stroke rehab</span><span class="svc-feature">Parkinson's</span><span class="svc-feature">MS management</span><span class="svc-feature">Balance training</span></div><div class="svc-price-row"><div><div class="svc-price">₹1,000</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Neurological Physio','₹1,000')">Book now</button></div></div></div>
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&h=300&fit=crop" alt="Paediatric" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Paediatric</div></div><div class="svc-big-body"><div class="svc-big-title">Paediatric Physio</div><div class="svc-big-desc">Gentle, goal-oriented therapy for children's developmental delays, cerebral palsy, torticollis, and postural conditions.</div><div class="svc-features"><span class="svc-feature">Developmental delay</span><span class="svc-feature">Cerebral palsy</span><span class="svc-feature">Torticollis</span><span class="svc-feature">Flat feet</span></div><div class="svc-price-row"><div><div class="svc-price">₹700</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Paediatric Physio','₹700')">Book now</button></div></div></div>
-      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&h=300&fit=crop" alt="Geriatric" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Geriatric</div></div><div class="svc-big-body"><div class="svc-big-title">Geriatric Physio</div><div class="svc-big-desc">Targeted therapy to improve mobility, balance, and independence in elderly patients — preventing falls and maintaining function.</div><div class="svc-features"><span class="svc-feature">Balance training</span><span class="svc-feature">Fall prevention</span><span class="svc-feature">Arthritis care</span><span class="svc-feature">Mobility exercises</span></div><div class="svc-price-row"><div><div class="svc-price">₹750</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWith('Geriatric Physio','₹750')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=300&fit=crop" alt="Sports Rehab" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Sports Rehab</div></div><div class="svc-big-body"><div class="svc-big-title">Sports Rehabilitation</div><div class="svc-big-desc">Expert recovery from sports injuries — muscle strains, ligament tears, ACL reconstruction, and athletic performance restoration.</div><div class="svc-features"><span class="svc-feature">Muscle strains</span><span class="svc-feature">Ligament tears</span><span class="svc-feature">ACL recovery</span><span class="svc-feature">Return to sport</span></div><div class="svc-price-row"><div><div class="svc-price">₹800</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Sports Rehabilitation','₹800')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=300&fit=crop" alt="Post-Surgery" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Post-Surgery</div></div><div class="svc-big-body"><div class="svc-big-title">Post-Surgery Recovery</div><div class="svc-big-desc">Structured rehabilitation protocols for patients recovering from orthopaedic surgeries, joint replacements, and fracture repair.</div><div class="svc-features"><span class="svc-feature">Joint replacement</span><span class="svc-feature">Fracture care</span><span class="svc-feature">Spine surgery</span><span class="svc-feature">Shoulder repair</span></div><div class="svc-price-row"><div><div class="svc-price">₹900</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Post-Surgery Recovery','₹900')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=300&fit=crop" alt="Back Spine" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Back &amp; Spine</div></div><div class="svc-big-body"><div class="svc-big-title">Back &amp; Spine Therapy</div><div class="svc-big-desc">Treatment for chronic back pain, disc conditions (herniation, bulge), sciatica, and posture-related complaints.</div><div class="svc-features"><span class="svc-feature">Lower back pain</span><span class="svc-feature">Disc herniation</span><span class="svc-feature">Sciatica</span><span class="svc-feature">Posture correction</span></div><div class="svc-price-row"><div><div class="svc-price">₹750</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Back & Spine Therapy','₹750')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&h=300&fit=crop" alt="Neuro" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Neurological</div></div><div class="svc-big-body"><div class="svc-big-title">Neurological Physio</div><div class="svc-big-desc">Specialised rehabilitation for stroke, Parkinson's disease, multiple sclerosis, and peripheral neuropathy recovery.</div><div class="svc-features"><span class="svc-feature">Stroke rehab</span><span class="svc-feature">Parkinson's</span><span class="svc-feature">MS management</span><span class="svc-feature">Balance training</span></div><div class="svc-price-row"><div><div class="svc-price">₹1,000</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Neurological Physio','₹1,000')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&h=300&fit=crop" alt="Paediatric" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Paediatric</div></div><div class="svc-big-body"><div class="svc-big-title">Paediatric Physio</div><div class="svc-big-desc">Gentle, goal-oriented therapy for children's developmental delays, cerebral palsy, torticollis, and postural conditions.</div><div class="svc-features"><span class="svc-feature">Developmental delay</span><span class="svc-feature">Cerebral palsy</span><span class="svc-feature">Torticollis</span><span class="svc-feature">Flat feet</span></div><div class="svc-price-row"><div><div class="svc-price">₹700</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Paediatric Physio','₹700')">Book now</button></div></div></div>
+      <div class="svc-big-card"><div class="svc-big-img"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&h=300&fit=crop" alt="Geriatric" loading="lazy"><div class="svc-overlay"></div><div class="svc-badge">Geriatric</div></div><div class="svc-big-body"><div class="svc-big-title">Geriatric Physio</div><div class="svc-big-desc">Targeted therapy to improve mobility, balance, and independence in elderly patients — preventing falls and maintaining function.</div><div class="svc-features"><span class="svc-feature">Balance training</span><span class="svc-feature">Fall prevention</span><span class="svc-feature">Arthritis care</span><span class="svc-feature">Mobility exercises</span></div><div class="svc-price-row"><div><div class="svc-price">₹750</div><div class="svc-price-note">per session</div></div><button class="btn-p" style="padding:10px 18px;font-size:13px" onclick="openBookingWithService('Geriatric Physio','₹750')">Book now</button></div></div></div>
     </div>
   </div>
 </div>
@@ -1101,7 +1101,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <li><i class="fa-solid fa-check"></i> Progress notes</li>
           <li style="color:var(--ink-6)"><i class="fa-solid fa-xmark" style="color:var(--ink-7)"></i> No package discount</li>
         </ul>
-        <button class="btn-price btn-price-out" onclick="openBooking()">Book a session</button>
+        <button class="btn-price btn-price-out" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book a session</button>
       </div>
       <div class="price-card featured">
         <div class="price-popular">Most Popular</div>
@@ -1116,7 +1116,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <li><i class="fa-solid fa-check"></i> WhatsApp follow-up</li>
           <li><i class="fa-solid fa-check"></i> Progress tracking</li>
         </ul>
-        <button class="btn-price btn-price-main" onclick="openBooking()">Get 5-session pack</button>
+        <button class="btn-price btn-price-main" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Get 5-session pack</button>
       </div>
       <div class="price-card">
         <div class="price-name">10-Session Package</div>
@@ -1130,7 +1130,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
           <li><i class="fa-solid fa-check"></i> WhatsApp follow-up</li>
           <li><i class="fa-solid fa-check"></i> Monthly progress review</li>
         </ul>
-        <button class="btn-price btn-price-out" onclick="openBooking()">Get 10-session pack</button>
+        <button class="btn-price btn-price-out" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Get 10-session pack</button>
       </div>
     </div>
     <div style="background:var(--ink-9);border-radius:var(--r-xl);padding:20px 18px;margin-top:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
@@ -1186,12 +1186,12 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
         <div class="card" style="padding:24px;margin-top:16px;background:var(--teal-lt);border-color:rgba(13,148,136,.2)">
           <div style="font-family:'Marcellus',serif;font-size:17px;color:var(--teal-dk);margin-bottom:10px">Ready to book?</div>
           <p style="font-size:13px;color:var(--ink-5);margin-bottom:16px">Same-day appointments often available.</p>
-          <button class="btn-p" style="width:100%" onclick="openBooking()">Book appointment</button>
+          <button class="btn-p" style="width:100%" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book appointment</button>
         </div>
       </div>
       <div class="faq-sidebar-mob" style="display:none">
         <button class="btn-p" style="width:100%;margin-bottom:10px" onclick="openWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Still have questions? Chat on WhatsApp</button>
-        <button class="btn-s" style="width:100%" onclick="openBooking()">Book appointment</button>
+        <button class="btn-s" style="width:100%" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book appointment</button>
       </div>
     </div>
   </div>
@@ -1297,7 +1297,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
               <div style="font-size:13px;color:var(--ink-5);margin-top:2px">Tomorrow, 10:00 AM · Gurgaon Clinic</div>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn-s" style="padding:8px 14px;font-size:13px" onclick="openBooking()">Reschedule</button>
+              <button class="btn-s" style="padding:8px 14px;font-size:13px" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Reschedule</button>
               <button class="btn-p" style="padding:8px 14px;font-size:13px" onclick="openWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Remind me</button>
             </div>
           </div>
@@ -1307,16 +1307,16 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
       <div class="dash-panel" id="dp-appointments">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
           <div><div class="dash-greeting" style="font-size:22px">My Appointments</div><div class="dash-sub" style="margin-bottom:0">All your past and upcoming visits</div></div>
-          <button class="btn-p" onclick="openBooking()"><i class="fa-solid fa-plus"></i> Book new</button>
+          <button class="btn-p" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-plus"></i> Book new</button>
         </div>
         <div style="overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--ink-8)">
           <table class="appt-table">
             <thead><tr><th>Date</th><th>Service</th><th>Location</th><th>Status</th><th>Action</th></tr></thead>
             <tbody>
-              <tr><td>26 May 2025, 10:00 AM</td><td>Back &amp; Spine Therapy</td><td>Gurgaon</td><td><span class="appt-status" style="background:#dcfce7;color:#166534"><i class="fa-solid fa-circle" style="font-size:7px"></i> Upcoming</span></td><td><button style="font-size:12px;color:var(--teal);border:none;background:none;cursor:pointer;font-weight:600" onclick="openBooking()">Reschedule</button></td></tr>
+              <tr><td>26 May 2025, 10:00 AM</td><td>Back &amp; Spine Therapy</td><td>Gurgaon</td><td><span class="appt-status" style="background:#dcfce7;color:#166534"><i class="fa-solid fa-circle" style="font-size:7px"></i> Upcoming</span></td><td><button style="font-size:12px;color:var(--teal);border:none;background:none;cursor:pointer;font-weight:600" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Reschedule</button></td></tr>
               <tr><td>20 May 2025, 11:00 AM</td><td>Sports Rehabilitation</td><td>Gurgaon</td><td><span class="appt-status" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-circle" style="font-size:7px"></i> Completed</span></td><td><span style="font-size:12px;color:var(--ink-5)">View notes</span></td></tr>
               <tr><td>14 May 2025, 9:00 AM</td><td>Back &amp; Spine Therapy</td><td>Patna</td><td><span class="appt-status" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-circle" style="font-size:7px"></i> Completed</span></td><td><span style="font-size:12px;color:var(--ink-5)">View notes</span></td></tr>
-              <tr><td>8 May 2025, 3:00 PM</td><td>Sports Rehabilitation</td><td>Gurgaon</td><td><span class="appt-status" style="background:#fef9c3;color:#854d0e"><i class="fa-solid fa-circle" style="font-size:7px"></i> Cancelled</span></td><td><button style="font-size:12px;color:var(--teal);border:none;background:none;cursor:pointer;font-weight:600" onclick="openBooking()">Rebook</button></td></tr>
+              <tr><td>8 May 2025, 3:00 PM</td><td>Sports Rehabilitation</td><td>Gurgaon</td><td><span class="appt-status" style="background:#fef9c3;color:#854d0e"><i class="fa-solid fa-circle" style="font-size:7px"></i> Cancelled</span></td><td><button style="font-size:12px;color:var(--teal);border:none;background:none;cursor:pointer;font-weight:600" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Rebook</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -1360,6 +1360,51 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
     </div>
   </div>
 </div>
+   <!-- BOOK APPOINTMENT SECTION -->
+<section id="booking-section" style="padding:80px 20px;background:#0f172a;">
+
+  <div style="max-width:1100px;margin:auto;">
+
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 style="
+        font-family:'Marcellus',serif;
+        font-size:42px;
+        color:white;
+        margin-bottom:12px;">
+        Book Your Appointment
+      </h2>
+
+      <p style="
+        color:#cbd5e1;
+        font-size:16px;
+        max-width:600px;
+        margin:auto;
+        line-height:1.7;">
+        Choose your preferred time slot and confirm your consultation instantly.
+      </p>
+    </div>
+
+    <!-- Calendly inline widget begin -->
+    <div
+      class="calendly-inline-widget"
+      data-url="https://calendly.com/otnest07/30min?hide_gdpr_banner=1&text_color=ffffff&primary_color=1a9a8f"
+      style="
+        min-width:320px;
+        height:750px;
+        border-radius:20px;
+        overflow:hidden;
+        box-shadow:0 10px 40px rgba(0,0,0,0.25);">
+    </div>
+
+    <script
+      type="text/javascript"
+      src="https://assets.calendly.com/assets/external/widget.js"
+      async>
+    </script>
+
+  </div>
+
+</section>
 
 <!-- ════════════════════════════════════
      FOOTER (shared, on all pages)
@@ -1368,7 +1413,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
   <div class="footer-cta">
     <div class="footer-cta-inner">
       <div><h3>Ready to start your recovery?</h3><p>Same-day appointments · Insurance accepted · Two clinic locations</p></div>
-      <button class="btn-cta-w" onclick="openBooking()">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:12px"></i></button>
+      <button class="btn-cta-w" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book Appointment <i class="fa-solid fa-arrow-right" style="font-size:12px"></i></button>
     </div>
   </div>
   <div class="footer-main">
@@ -1389,7 +1434,7 @@ input,select,textarea{font-family:'Inter',sans-serif;font-size:16px}/* 16px prev
     </div>
     <div class="footer-col"><h5>Services</h5><ul><li><a onclick="navTo('services')">Sports Rehabilitation</a></li><li><a onclick="navTo('services')">Post-Surgery Recovery</a></li><li><a onclick="navTo('services')">Back &amp; Spine</a></li><li><a onclick="navTo('services')">Neurological Physio</a></li><li><a onclick="navTo('services')">Paediatric Physio</a></li></ul></div>
     <div class="footer-col"><h5>Clinic</h5><ul><li><a onclick="navTo('about')">About Dr. Satish</a></li><li><a onclick="navTo('blog')">Blog</a></li><li><a onclick="navTo('faq')">FAQ</a></li><li><a onclick="navTo('pricing')">Pricing</a></li><li><a onclick="navTo('contact')">Contact</a></li></ul></div>
-    <div class="footer-col"><h5>Locations</h5><ul><li><a onclick="navTo('home');setTimeout(()=>scrollToSec('patna'),100)">Patna Clinic</a></li><li><a onclick="navTo('home');setTimeout(()=>scrollToSec('gurgaon'),100)">Gurgaon Clinic</a></li></ul><h5 style="margin-top:18px">Quick</h5><ul><li><a onclick="openBooking()">Book appointment</a></li><li><a onclick="openAuthModal()">Patient login</a></li></ul></div>
+    <div class="footer-col"><h5>Locations</h5><ul><li><a onclick="navTo('home');setTimeout(()=>scrollToSec('patna'),100)">Patna Clinic</a></li><li><a onclick="navTo('home');setTimeout(()=>scrollToSec('gurgaon'),100)">Gurgaon Clinic</a></li></ul><h5 style="margin-top:18px">Quick</h5><ul><li><a onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">Book appointment</a></li><li><a onclick="openAuthModal()">Patient login</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 OT Nest. All rights reserved.</span>
@@ -1833,7 +1878,7 @@ function sendContact(){
 // ══════════════════════════════════════
 // BOOKING MODAL
 // ══════════════════════════════════════
-function openBooking(){
+function document.getElementById('booking-section').scrollIntoView({behavior:'smooth'}){
   document.getElementById('booking-modal').classList.add('open')
   document.body.style.overflow = 'hidden'
   document.querySelector('.wa-fab').style.display='none'
@@ -1841,8 +1886,8 @@ function openBooking(){
   goStep(1, true)
   buildDateGrid()
 }
-function openBookingWith(svc, price){
-  openBooking()
+function openBookingWithService(svc, price){
+  document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})
   // Pre-select service
   setTimeout(()=>{
     const opts = document.querySelectorAll('#svc-opts .svc-opt')
@@ -2102,24 +2147,6 @@ function sendWAConfirm(){
 // INIT
 // ══════════════════════════════════════
 navTo('home')
-</script>
-
-   <!-- Calendly -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-
-<script src="https://assets.calendly.com/assets/external/widget.js"
-type="text/javascript"
-async></script>
-
-<script>
-function openBooking() {
-
-    Calendly.initPopupWidget({
-        url: 'https://calendly.com/otnest07/30min?hide_gdpr_banner=1'
-    });
-
-    return false;
-}
 </script>
 </body>
 </html>
