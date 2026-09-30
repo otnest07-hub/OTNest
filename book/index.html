@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Book an Appointment | OT Nest Physiotherapy Clinic</title>
+  <meta name="description" content="Book your physiotherapy appointment with OT Nest — visit the Patna or Gurgaon clinic, or consult by video call, then pick a time that works for you."/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link rel="canonical" href="https://otnest.in/book/"/>
+  <link href="/assets/css/lumora.css?v=20260930a" rel="stylesheet" type="text/css"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="/assets/css/toggles.css?v=20260930a" rel="stylesheet" type="text/css"/>
+  <link href="/assets/img/otnest-favicon.svg?v=1" rel="icon" type="image/svg+xml"/>
+  <link href="/assets/img/otnest-favicon.svg?v=1" rel="apple-touch-icon"/>
+  <script>(function(){try{var t=localStorage.getItem("dapdc_theme");if(t!=="light"&&t!=="dark"){t="light";}document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("lang","en");document.documentElement.setAttribute("dir","ltr");}catch(e){}})();</script>
+  <style>
+    :root{--auth-bg:#F6F6F6;--auth-card:#ffffff;--auth-ink:#091F5B;--auth-mut:#5d6c7b;--auth-line:#d3e0f2;--auth-accent:#31538F;}
+    :root[data-theme="dark"]{--auth-bg:#081231;--auth-card:#0d1c45;--auth-ink:#eaf1fb;--auth-mut:#9caed0;--auth-line:rgba(255,255,255,.14);--auth-accent:#6F96D1;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:var(--auth-bg);color:var(--auth-ink);font-family:Sora,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:normal;}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:1040px;margin:0 auto;width:100%;}
+    .top a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--auth-mut);font-size:14px;}
+    .top img{height:30px;width:auto;object-fit:contain!important;aspect-ratio:auto!important;}
+    :root[data-theme="dark"] .top img{filter:brightness(0) invert(1);}
+    .wrap{max-width:1040px;margin:0 auto;padding:8px 20px 64px;}
+    h1{font-size:26px;margin:6px 0 4px;letter-spacing:-.4px;}
+    .lead{color:var(--auth-mut);font-size:14.5px;margin:0 0 22px;}
+    .card{background:var(--auth-card);border:1px solid var(--auth-line);border-radius:18px;padding:18px;box-shadow:0 18px 44px -28px rgba(1,31,35,.22);}
+
+    .choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media (max-width:560px){.choices{grid-template-columns:1fr;}}
+    .choice{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;
+      background:var(--auth-bg);border:1px solid var(--auth-line);border-radius:14px;padding:20px 18px;
+      font:inherit;color:inherit;cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s;}
+    .choice:hover{border-color:var(--auth-accent);transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(1,31,35,.4);}
+    .choice .ic{width:40px;height:40px;border-radius:11px;background:color-mix(in srgb,var(--auth-accent) 16%,transparent);
+      display:flex;align-items:center;justify-content:center;color:var(--auth-accent);}
+    .choice .ic svg{width:22px;height:22px;}
+    .choice-title{font-weight:700;font-size:15.5px;}
+    .choice-sub{font-size:12.5px;color:var(--auth-mut);line-height:1.45;}
+
+    .backlink{background:none;border:0;color:var(--auth-accent);font:inherit;font-size:13px;cursor:pointer;padding:0;margin-bottom:14px;}
+    #cal-inline{min-height:640px;width:100%;overflow:hidden;border-radius:12px;}
+    #cal-loading{color:var(--auth-mut);font-size:14px;text-align:center;padding:60px 10px;}
+
+    .fallback{max-width:420px;margin:0 auto;text-align:center;}
+    .fallback p{color:var(--auth-mut);font-size:14px;margin:0 0 16px;}
+    .btn{padding:13px 18px;font:inherit;font-weight:600;font-size:15px;border-radius:999px;border:0;cursor:pointer;display:block;width:100%;text-align:center;text-decoration:none;line-height:1.4;margin-bottom:10px;}
+    .btn-primary{background:#091F5B;color:#fff;}
+    :root[data-theme="dark"] .btn-primary{background:#17285e;color:#eaf1fb;border:1px solid var(--auth-line);}
+    .btn-ghost{background:transparent;border:1px solid var(--auth-line);color:inherit;}
+    .other{text-align:center;color:var(--auth-mut);font-size:13px;margin-top:20px;}
+    .other a{color:var(--auth-accent);text-decoration:none;}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <a href="/">&larr; Back to website</a>
+    <img src="/assets/img/otnest-logo-navy.svg?v=1" alt="OT Nest Physiotherapy Clinic"/>
+  </div>
+
+  <div class="wrap">
+    <h1>Book an Appointment</h1>
+    <p class="lead">Choose how you'd like to see Dr. Satish, then pick a time. You'll get a confirmation and a reminder before your visit.</p>
+
+    <!-- Step 1: pick appointment type -->
+    <div class="card" id="chooser">
+      <div class="choices">
+        <button type="button" class="choice" data-type="clinic">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4M10 12h4"/></svg></span>
+          <span class="choice-title">Book at the clinic</span>
+          <span class="choice-sub">In-person visit at our Patna or Gurgaon clinic.</span>
+        </button>
+        <button type="button" class="choice" data-type="video">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg></span>
+          <span class="choice-title">Via video call</span>
+          <span class="choice-sub">Consult Dr. Satish online from home over a video link.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: calendar -->
+    <div class="card" id="calStep" hidden>
+      <button type="button" class="backlink" id="backBtn">&larr; Choose a different type</button>
+      <div id="cal-inline"><div id="cal-loading">Loading the calendar…</div></div>
+    </div>
+
+    <!-- Per-option fallback (shown when that type has no Cal.com link yet) -->
+    <div class="card fallback" id="cal-fallback" hidden>
+      <button type="button" class="backlink" id="fbBackBtn">&larr; Choose a different type</button>
+      <p id="fbText">Online booking for this option is being set up. For now, please book directly with the clinic:</p>
+      <a class="btn btn-primary" id="fbWa" href="#" target="_blank" rel="noopener">Book on WhatsApp</a>
+      <a class="btn btn-ghost" href="tel:+917549377608">Call +91 75493 77608</a>
+    </div>
+
+    <p class="other">Prefer to talk to us? <a href="tel:+917549377608">Call +91&nbsp;75493&nbsp;77608</a> or <a href="https://wa.me/917549377608?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20with%20OT%20Nest%20Physiotherapy%20Clinic." target="_blank" rel="noopener">message on WhatsApp</a>.</p>
+  </div>
+
+  <script src="/assets/js/cal-config.js?v=20260930a"></script>
+  <script src="/assets/js/supabase-config.js?v=1"></script>
+  <script src="/assets/js/supabase-load.js?v=1"></script>
+  <script>
+  (function () {
+    var LINKS = { clinic: window.CAL_LINK_CLINIC || "", video: window.CAL_LINK_VIDEO || "" };
+    var theme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    var chooser  = document.getElementById("chooser");
+    var calStep  = document.getElementById("calStep");
+    var fallback = document.getElementById("cal-fallback");
+    var calEl    = document.getElementById("cal-inline");
+    var prefill  = null;        // {name,email} once we know the visitor
+    var calBooted = false;      // Cal.com embed script initialised once
+
+    var WA = {
+      clinic: "https://wa.me/917549377608?text=" + encodeURIComponent("Hi, I'd like to book an appointment at the clinic with OT Nest Physiotherapy Clinic."),
+      video:  "https://wa.me/917549377608?text=" + encodeURIComponent("Hi, I'd like to book a video-call consultation with OT Nest Physiotherapy Clinic.")
+    };
+
+    // The two options are always shown. Each opens its Cal.com calendar if a
+    // link is set, otherwise a WhatsApp/phone fallback for that option.
+    document.querySelectorAll(".choice").forEach(function (btn) {
+      var type = btn.getAttribute("data-type");
+      btn.addEventListener("click", function () {
+        if (LINKS[type]) openCalendar(LINKS[type]);
+        else showFallback(type);
+      });
+    });
+
+    function backToChooser() {
+      calStep.hidden = true;
+      fallback.hidden = true;
+      chooser.hidden = false;
+      calEl.innerHTML = "";
+    }
+    document.getElementById("backBtn").addEventListener("click", backToChooser);
+    document.getElementById("fbBackBtn").addEventListener("click", backToChooser);
+
+    function showFallback(type) {
+      chooser.hidden = true;
+      calStep.hidden = true;
+      document.getElementById("fbText").textContent = (type === "video"
+        ? "Video-call booking is being set up. For now, please arrange your video consultation directly with the clinic:"
+        : "Online booking is being set up. For now, please book your clinic visit directly:");
+      document.getElementById("fbWa").href = WA[type] || WA.clinic;
+      fallback.hidden = false;
+    }
+
+    function bootCal() {
+      if (calBooted) return;
+      calBooted = true;
+      (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else { p(cal, ar); } return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", "book", { origin: "https://cal.com" });
+      Cal.ns.book("ui", {
+        theme: theme,
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        cssVarsPerTheme: { light: { "cal-brand": "#091F5B" }, dark: { "cal-brand": "#6F96D1" } }
+      });
+    }
+
+    function openCalendar(calLink) {
+      chooser.hidden = true;
+      fallback.hidden = true;
+      calStep.hidden = false;
+      calEl.innerHTML = '<div id="cal-loading">Loading the calendar…</div>';
+      bootCal();
+      Cal.ns.book("inline", {
+        elementOrSelector: "#cal-inline",
+        calLink: calLink,
+        layout: "month_view",
+        config: prefill || {}
+      });
+      // remove our placeholder once Cal injects its iframe
+      setTimeout(function () { var l = document.getElementById("cal-loading"); if (l && calEl.querySelector("iframe")) l.remove(); }, 1500);
+    }
+
+    // Grab name/email for prefill if the visitor is a signed-in patient (non-blocking).
+    try {
+      loadSupabaseClient(function (client) {
+        if (!client) return;
+        client.auth.getSession().then(function (res) {
+          var u = res.data && res.data.session && res.data.session.user;
+          if (u) prefill = { name: (u.user_metadata && u.user_metadata.full_name) || "", email: u.email || "" };
+        }).catch(function () {});
+      });
+    } catch (e) {}
+  })();
+  </script>
+<a href="https://wa.me/917549377608?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20with%20OT%20Nest%20Physiotherapy%20Clinic." class="dapdc-wa" target="_blank" rel="noopener" aria-label="Chat with OT Nest Physiotherapy Clinic on WhatsApp"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="#fff" d="M16.004 5.333c-5.887 0-10.667 4.78-10.667 10.667 0 1.88.492 3.72 1.427 5.341L5.333 26.667l5.503-1.442a10.63 10.63 0 0 0 5.168 1.316h.004c5.887 0 10.667-4.78 10.667-10.667 0-2.85-1.11-5.53-3.127-7.546a10.6 10.6 0 0 0-7.545-3.129zm0 19.2h-.003a8.86 8.86 0 0 1-4.512-1.236l-.324-.192-3.266.856.872-3.184-.211-.327a8.85 8.85 0 0 1-1.357-4.716c0-4.897 3.985-8.881 8.885-8.881a8.82 8.82 0 0 1 6.28 2.604 8.82 8.82 0 0 1 2.6 6.283c0 4.898-3.985 8.882-8.884 8.882zm4.87-6.65c-.267-.134-1.58-.78-1.825-.868-.245-.09-.423-.134-.601.133-.178.267-.69.868-.846 1.046-.156.178-.312.2-.579.067-.267-.134-1.127-.416-2.147-1.325-.794-.708-1.33-1.582-1.486-1.849-.156-.267-.017-.411.117-.544.12-.12.267-.312.4-.468.135-.156.178-.267.267-.445.09-.178.045-.334-.022-.468-.067-.133-.601-1.449-.824-1.984-.217-.52-.437-.45-.601-.458l-.512-.009c-.178 0-.467.067-.712.334-.245.267-.935.913-.935 2.229 0 1.315.957 2.585 1.09 2.763.134.178 1.884 2.876 4.564 4.033.638.276 1.135.44 1.523.563.64.204 1.222.175 1.683.106.513-.076 1.58-.646 1.803-1.27.223-.623.223-1.157.156-1.269-.067-.111-.245-.178-.512-.312z"/></svg></a>
+</body>
+</html>

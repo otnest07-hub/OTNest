@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://otnest.in/sitemap.xml

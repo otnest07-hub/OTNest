@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 34" height="34" role="img" aria-label="OT Nest Physiotherapy Clinic">
+  <rect x="0" y="1" width="32" height="32" rx="9" fill="#ffffff" fill-opacity="0.14"/>
+  <path d="M8 21c2.5 0 2.5-8 5-8s2.5 12 5 12 2.5-16 5-16 2.5 12 5 12" fill="none" stroke="#6F96D1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="40" y="24" font-family="Sora, -apple-system, Segoe UI, Arial, sans-serif" font-weight="700" font-size="19" letter-spacing="-0.3" fill="#ffffff">OT <tspan fill="#9DBFEF">Nest</tspan></text>
+</svg>

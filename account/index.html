@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>My Account | OT Nest Physiotherapy Clinic</title>
+  <meta name="description" content="Patient account for OT Nest Physiotherapy Clinic, Patna &amp; Gurgaon."/>
+  <meta name="robots" content="noindex, follow"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="/assets/css/lumora.css?v=20260930a" rel="stylesheet" type="text/css"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="/assets/css/toggles.css?v=20260930a" rel="stylesheet" type="text/css"/>
+  <link href="/assets/img/otnest-favicon.svg?v=1" rel="icon" type="image/svg+xml"/>
+  <link href="/assets/img/otnest-favicon.svg?v=1" rel="apple-touch-icon"/>
+  <script>(function(){try{var t=localStorage.getItem("dapdc_theme");if(t!=="light"&&t!=="dark"){t="light";}document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("lang","en");document.documentElement.setAttribute("dir","ltr");}catch(e){}})();</script>
+  <style>
+    :root{--auth-bg:#F6F6F6;--auth-card:#ffffff;--auth-ink:#091F5B;--auth-mut:#5d6c7b;--auth-line:#d3e0f2;--auth-accent:#31538F;}
+    :root[data-theme="dark"]{--auth-bg:#081231;--auth-card:#0d1c45;--auth-ink:#eaf1fb;--auth-mut:#9caed0;--auth-line:rgba(255,255,255,.14);--auth-accent:#6F96D1;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:var(--auth-bg);color:var(--auth-ink);font-family:Sora,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:normal;}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:920px;margin:0 auto;width:100%;}
+    .top a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--auth-mut);font-size:14px;}
+    .top img{height:30px;width:auto;object-fit:contain!important;aspect-ratio:auto!important;}
+    :root[data-theme="dark"] .top img{filter:brightness(0) invert(1);}
+    .wrap{max-width:720px;margin:0 auto;padding:8px 20px 64px;}
+    h1{font-size:26px;margin:6px 0 4px;letter-spacing:-.4px;}
+    .lead{color:var(--auth-mut);font-size:14.5px;margin:0 0 24px;}
+    .card{background:var(--auth-card);border:1px solid var(--auth-line);border-radius:18px;padding:22px 22px;margin-bottom:20px;box-shadow:0 18px 44px -28px rgba(1,31,35,.22);}
+    .card h2{font-size:16px;margin:0 0 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .fld{margin-bottom:12px;}
+    .fld label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px;color:var(--auth-mut);}
+    .fld input,.fld select,.fld textarea{width:100%;padding:11px 13px;font:inherit;font-size:14.5px;color:inherit;background:transparent;border:1px solid var(--auth-line);border-radius:10px;outline:none;}
+    .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--auth-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--auth-accent) 22%,transparent);}
+    .fld input[readonly]{opacity:.65;}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media (max-width:480px){.row2{grid-template-columns:1fr;}}
+    .btn{padding:11px 18px;font:inherit;font-weight:600;font-size:14px;border-radius:999px;border:0;cursor:pointer;}
+    .btn-primary{background:#091F5B;color:#fff;}
+    :root[data-theme="dark"] .btn-primary{background:#17285e;color:#eaf1fb;border:1px solid var(--auth-line);}
+    .btn-ghost{background:transparent;border:1px solid var(--auth-line);color:inherit;}
+    .btn-sm{padding:7px 13px;font-size:12.5px;}
+    .btn-block{width:100%;display:block;text-align:center;text-decoration:none;line-height:1.4;}
+    .msg{display:none;margin:0 0 14px;padding:10px 13px;border-radius:10px;font-size:13px;line-height:1.4;}
+    .msg.err{display:block;background:rgba(229,72,77,.12);color:#e5484d;border:1px solid rgba(229,72,77,.3);}
+    .msg.ok{display:block;background:rgba(37,161,120,.14);color:#1f9d64;border:1px solid rgba(37,161,120,.3);}
+    .msg.info{display:block;background:color-mix(in srgb,var(--auth-accent) 12%,transparent);color:var(--auth-accent);border:1px solid color-mix(in srgb,var(--auth-accent) 30%,transparent);}
+    .appt{border:1px solid var(--auth-line);border-radius:14px;padding:14px 16px;margin-bottom:12px;}
+    .appt-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;}
+    .appt-date{font-weight:700;font-size:15px;}
+    .appt-service{color:var(--auth-mut);font-size:13.5px;margin-top:2px;}
+    .badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px;}
+    .badge-requested{background:rgba(111,150,209,.18);color:var(--auth-accent);}
+    .badge-confirmed{background:rgba(37,161,120,.16);color:#1f9d64;}
+    .badge-reschedule_requested{background:rgba(230,160,40,.18);color:#b8790a;}
+    .badge-completed{background:rgba(120,120,120,.15);color:var(--auth-mut);}
+    .badge-cancelled{background:rgba(229,72,77,.12);color:#e5484d;}
+    .appt-note{font-size:13px;color:var(--auth-mut);margin-top:8px;}
+    .appt-actions{margin-top:10px;}
+    .resched-form{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--auth-line);}
+    .resched-form.open{display:block;}
+    .empty{text-align:center;color:var(--auth-mut);font-size:13.5px;padding:20px 6px;}
+    .signout{margin-top:6px;}
+    .setup-note{font-size:13px;color:var(--auth-mut);}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <a href="/">&larr; Back to website</a>
+    <img src="/assets/img/otnest-logo-navy.svg?v=1" alt="OT Nest Physiotherapy Clinic"/>
+  </div>
+
+  <div class="wrap">
+    <h1>My Account</h1>
+    <p class="lead" id="welcomeLine">Checking your session…</p>
+
+    <div id="dashboard" hidden>
+
+      <!-- Profile -->
+      <div class="card">
+        <h2>Your details</h2>
+        <div class="msg" id="profileMsg"></div>
+        <div class="fld"><label>Email</label><input type="text" id="p-email" readonly/></div>
+        <div class="row2">
+          <div class="fld"><label>Full name</label><input type="text" id="p-name" placeholder="Your full name"/></div>
+          <div class="fld"><label>Phone number</label><input type="tel" id="p-phone" placeholder="10-digit mobile number"/></div>
+        </div>
+        <button type="button" class="btn btn-primary" id="saveProfileBtn">Save changes</button>
+      </div>
+
+      <!-- Appointments -->
+      <div class="card">
+        <h2>My appointments</h2>
+        <div class="msg" id="apptMsg"></div>
+        <div id="apptList"></div>
+        <div class="empty" id="apptEmpty" hidden>No appointments on file yet — request one below, or call/WhatsApp the clinic.</div>
+      </div>
+
+      <!-- Book / request new appointment -->
+      <div class="card">
+        <h2>Book a new appointment</h2>
+        <a href="/book/" class="btn btn-primary btn-block" style="margin-bottom:8px;">Book instantly — live calendar</a>
+        <p style="text-align:center;color:var(--auth-mut);font-size:12.5px;margin:0 0 16px;">Pick a slot and it's confirmed straight away — or send a request below and the clinic will get back to you.</p>
+        <div class="msg" id="newApptMsg"></div>
+        <form id="newApptForm">
+          <div class="fld">
+            <label>Service</label>
+            <select id="na-service">
+              <option>Initial assessment / consultation</option>
+              <option>Sports injury rehabilitation</option>
+              <option>Post-surgery recovery</option>
+              <option>Back &amp; spine therapy</option>
+              <option>Neurological physiotherapy</option>
+              <option>Paediatric physiotherapy</option>
+              <option>Geriatric physiotherapy</option>
+              <option>Dry needling / manual therapy</option>
+              <option>Home visit</option>
+              <option>Other</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="row2">
+            <div class="fld"><label>Preferred date</label><input type="date" id="na-date"/></div>
+            <div class="fld"><label>Preferred time</label><input type="time" id="na-time"/></div>
+          </div>
+          <div class="fld"><label>Note (optional)</label><textarea id="na-note" rows="2" placeholder="Anything the clinic should know"></textarea></div>
+          <button type="submit" class="btn btn-primary" id="newApptBtn">Send request</button>
+        </form>
+      </div>
+
+      <div class="card signout">
+        <a href="tel:+917549377608" class="btn btn-primary btn-block" style="margin-bottom:10px;">Call +91 75493 77608</a>
+        <button type="button" class="btn btn-ghost btn-block" id="logoutBtn">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/supabase-config.js?v=1"></script>
+  <script src="/assets/js/supabase-load.js?v=1"></script>
+  <script>
+  (function () {
+    var client = null;
+    var user = null;
+    var WA_PHONE = "917549377608";
+
+    function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+    function showMsg(id, kind, text) { var el = document.getElementById(id); el.className = "msg " + kind; el.textContent = text; }
+    function clearMsg(id) { var el = document.getElementById(id); el.className = "msg"; el.textContent = ""; }
+    function waLink(text) { return "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text); }
+    function fmtDate(d) {
+      if (!d) return "Date to be confirmed";
+      var dt = new Date(d + "T00:00:00");
+      if (isNaN(dt)) return d;
+      return dt.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    }
+    function isMissingTable(err) {
+      return err && (err.code === "42P01" || /relation .* does not exist/i.test(err.message || ""));
+    }
+
+    function renderAppointments(rows) {
+      var list = document.getElementById("apptList");
+      var empty = document.getElementById("apptEmpty");
+      list.innerHTML = "";
+      if (!rows || !rows.length) { empty.hidden = false; return; }
+      empty.hidden = true;
+
+      rows.forEach(function (a) {
+        var status = a.status || "requested";
+        var label = status.replace(/_/g, " ");
+        var canReschedule = status === "confirmed" || status === "requested";
+
+        var div = document.createElement("div");
+        div.className = "appt";
+        div.innerHTML =
+          '<div class="appt-top">' +
+            '<div><div class="appt-date">' + esc(fmtDate(a.appointment_date)) + (a.appointment_time ? " · " + esc(a.appointment_time) : "") + '</div>' +
+            '<div class="appt-service">' + esc(a.service || "General visit") + '</div></div>' +
+            '<span class="badge badge-' + esc(status) + '">' + esc(label) + '</span>' +
+          '</div>' +
+          (a.note ? '<div class="appt-note">' + esc(a.note) + '</div>' : "") +
+          (status === "reschedule_requested"
+            ? '<div class="appt-note">Reschedule requested: ' + esc(fmtDate(a.requested_date)) + (a.requested_time ? " · " + esc(a.requested_time) : "") + ' — awaiting clinic confirmation.</div>'
+            : "") +
+          (canReschedule ? (
+            '<div class="appt-actions"><button type="button" class="btn btn-ghost btn-sm resched-toggle">Request reschedule</button></div>' +
+            '<div class="resched-form">' +
+              '<div class="row2">' +
+                '<div class="fld"><label>New preferred date</label><input type="date" class="r-date"/></div>' +
+                '<div class="fld"><label>New preferred time</label><input type="time" class="r-time"/></div>' +
+              '</div>' +
+              '<div class="fld"><label>Note (optional)</label><input type="text" class="r-note" placeholder="Reason, if any"/></div>' +
+              '<button type="button" class="btn btn-primary btn-sm r-submit">Send reschedule request</button>' +
+            '</div>'
+          ) : "");
+        list.appendChild(div);
+
+        var toggle = div.querySelector(".resched-toggle");
+        var form = div.querySelector(".resched-form");
+        if (toggle) {
+          toggle.addEventListener("click", function () { form.classList.toggle("open"); });
+          div.querySelector(".r-submit").addEventListener("click", function () {
+            var rDate = div.querySelector(".r-date").value;
+            var rTime = div.querySelector(".r-time").value;
+            var rNote = div.querySelector(".r-note").value.trim();
+            if (!rDate) { showMsg("apptMsg", "err", "Pick a preferred date first."); return; }
+            clearMsg("apptMsg");
+            client.from("appointments").update({
+              status: "reschedule_requested",
+              requested_date: rDate,
+              requested_time: rTime || null,
+              note: rNote || a.note || null
+            }).eq("id", a.id).then(function (res) {
+              if (res.error) { showMsg("apptMsg", "err", "Could not send that request. Please try again."); return; }
+              showMsg("apptMsg", "ok", "Reschedule request sent — the clinic will confirm shortly.");
+              window.open(waLink("Hi, I'd like to reschedule my " + (a.service || "appointment") + " (previously " + fmtDate(a.appointment_date) + ") to " + fmtDate(rDate) + (rTime ? " " + rTime : "") + "."), "_blank");
+              loadAppointments();
+            });
+          });
+        }
+      });
+    }
+
+    function loadAppointments() {
+      client.from("appointments").select("*").eq("patient_id", user.id)
+        .order("appointment_date", { ascending: true, nullsFirst: false })
+        .order("created_at", { ascending: false })
+        .then(function (res) {
+          if (res.error) {
+            if (isMissingTable(res.error)) {
+              document.getElementById("apptList").innerHTML = '<p class="setup-note">The appointments system is being set up — check back soon, or call/WhatsApp the clinic.</p>';
+              document.getElementById("apptEmpty").hidden = true;
+            } else {
+              showMsg("apptMsg", "err", "Could not load your appointments right now.");
+            }
+            return;
+          }
+          renderAppointments(res.data);
+        });
+    }
+
+    function loadProfile() {
+      document.getElementById("p-email").value = user.email || "";
+      var meta = user.user_metadata || {};
+      client.from("profiles").select("*").eq("id", user.id).maybeSingle().then(function (res) {
+        if (res.error && !isMissingTable(res.error)) { showMsg("profileMsg", "err", "Could not load your profile."); }
+        var row = res.data;
+        document.getElementById("p-name").value = (row && row.full_name) || meta.full_name || "";
+        document.getElementById("p-phone").value = (row && row.phone) || meta.phone || "";
+        // First time we see this user with no profile row yet: create it.
+        if (!res.error && !row && (meta.full_name || meta.phone)) {
+          client.from("profiles").upsert({ id: user.id, full_name: meta.full_name || "", phone: meta.phone || "" }).then(function () {});
+        }
+      });
+    }
+
+    document.getElementById("saveProfileBtn").addEventListener("click", function () {
+      clearMsg("profileMsg");
+      var name = document.getElementById("p-name").value.trim();
+      var phone = document.getElementById("p-phone").value.trim();
+      client.from("profiles").upsert({ id: user.id, full_name: name, phone: phone }).then(function (res) {
+        if (res.error) { showMsg("profileMsg", "err", isMissingTable(res.error) ? "The account system is still being set up — please try again soon." : "Could not save your details."); return; }
+        showMsg("profileMsg", "ok", "Saved.");
+        document.getElementById("welcomeLine").textContent = "Welcome back" + (name ? ", " + name : "") + ".";
+      });
+    });
+
+    document.getElementById("newApptForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      clearMsg("newApptMsg");
+      var service = document.getElementById("na-service").value;
+      var date = document.getElementById("na-date").value;
+      var time = document.getElementById("na-time").value;
+      var note = document.getElementById("na-note").value.trim();
+      var btn = document.getElementById("newApptBtn");
+      btn.disabled = true; btn.textContent = "Sending…";
+      client.from("appointments").insert({
+        patient_id: user.id, service: service, status: "requested",
+        requested_date: date || null, requested_time: time || null, note: note || null
+      }).then(function (res) {
+        btn.disabled = false; btn.textContent = "Send request";
+        if (res.error) {
+          showMsg("newApptMsg", "err", isMissingTable(res.error) ? "The appointments system is still being set up — please call/WhatsApp instead for now." : "Could not send your request.");
+          return;
+        }
+        showMsg("newApptMsg", "ok", "Request sent — the clinic will confirm your appointment shortly.");
+        document.getElementById("newApptForm").reset();
+        window.open(waLink("Hi, I'd like to book an appointment for " + service + (date ? " on " + fmtDate(date) : "") + (time ? " at " + time : "") + (note ? (". Note: " + note) : "") + "."), "_blank");
+        loadAppointments();
+      });
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      client.auth.signOut().then(function () { window.location.href = "/"; });
+    });
+
+    loadSupabaseClient(function (c) {
+      client = c;
+      if (!client) { window.location.href = "/login/"; return; }
+      client.auth.getSession().then(function (res) {
+        var session = res.data && res.data.session;
+        if (!session) { window.location.href = "/login/"; return; }
+        user = session.user;
+        document.getElementById("welcomeLine").textContent = "Welcome back" + (user.user_metadata && user.user_metadata.full_name ? ", " + user.user_metadata.full_name : "") + ".";
+        document.getElementById("dashboard").hidden = false;
+        loadProfile();
+        loadAppointments();
+      });
+    });
+  })();
+  </script>
+<a href="https://wa.me/917549377608?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20with%20OT%20Nest%20Physiotherapy%20Clinic." class="dapdc-wa" target="_blank" rel="noopener" aria-label="Chat with OT Nest Physiotherapy Clinic on WhatsApp"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="#fff" d="M16.004 5.333c-5.887 0-10.667 4.78-10.667 10.667 0 1.88.492 3.72 1.427 5.341L5.333 26.667l5.503-1.442a10.63 10.63 0 0 0 5.168 1.316h.004c5.887 0 10.667-4.78 10.667-10.667 0-2.85-1.11-5.53-3.127-7.546a10.6 10.6 0 0 0-7.545-3.129zm0 19.2h-.003a8.86 8.86 0 0 1-4.512-1.236l-.324-.192-3.266.856.872-3.184-.211-.327a8.85 8.85 0 0 1-1.357-4.716c0-4.897 3.985-8.881 8.885-8.881a8.82 8.82 0 0 1 6.28 2.604 8.82 8.82 0 0 1 2.6 6.283c0 4.898-3.985 8.882-8.884 8.882zm4.87-6.65c-.267-.134-1.58-.78-1.825-.868-.245-.09-.423-.134-.601.133-.178.267-.69.868-.846 1.046-.156.178-.312.2-.579.067-.267-.134-1.127-.416-2.147-1.325-.794-.708-1.33-1.582-1.486-1.849-.156-.267-.017-.411.117-.544.12-.12.267-.312.4-.468.135-.156.178-.267.267-.445.09-.178.045-.334-.022-.468-.067-.133-.601-1.449-.824-1.984-.217-.52-.437-.45-.601-.458l-.512-.009c-.178 0-.467.067-.712.334-.245.267-.935.913-.935 2.229 0 1.315.957 2.585 1.09 2.763.134.178 1.884 2.876 4.564 4.033.638.276 1.135.44 1.523.563.64.204 1.222.175 1.683.106.513-.076 1.58-.646 1.803-1.27.223-.623.223-1.157.156-1.269-.067-.111-.245-.178-.512-.312z"/></svg></a>
+</body>
+</html>

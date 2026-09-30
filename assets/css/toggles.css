@@ -1,0 +1,374 @@
+/* ==========================================================================
+   Dr. Asim Prakash Dental Clinic — language + theme toggles
+   Loaded AFTER lumora.css. Additive only; no template rules edited.
+   ========================================================================== */
+
+/* ---------- 1. Header toggle controls ---------------------------------- */
+.dapdc-toggles{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-inline-end:14px;
+}
+.dapdc-toggle{
+  -webkit-appearance:none;appearance:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:38px;height:38px;padding:0 10px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  color:#ffffff;                       /* header sits on the dark navy bar in both themes */
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,.65);
+  border-radius:999px;
+  cursor:pointer;
+  opacity:1;
+  transition:background-color .15s ease, border-color .15s ease;
+}
+.dapdc-toggle:hover{background-color:rgba(255,255,255,.16);border-color:#fff;}
+.dapdc-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+.dapdc-toggle svg{width:17px;height:17px;display:block;fill:#ffffff;}
+.dapdc-lang-label{letter-spacing:.03em;white-space:nowrap;color:#fff;}
+
+/* sun / moon swap */
+.dapdc-toggle .dapdc-ico-moon{display:none;}
+:root[data-theme="dark"] .dapdc-toggle .dapdc-ico-sun{display:none;}
+:root[data-theme="dark"] .dapdc-toggle .dapdc-ico-moon{display:block;}
+
+@media (max-width:479px){
+  .dapdc-toggles{gap:6px;margin-inline-end:8px;}
+  .dapdc-toggle{min-width:34px;height:34px;padding:0 8px;font-size:12px;}
+}
+
+/* ---------- 2. Dark mode ---------------------------------------------- *
+ * The template paints backgrounds/text from --primitive-color--* vars
+ * (e.g. background-color:var(--primitive-color--neutral-0)). Re-point
+ * those primitives and the whole site re-colours.                       */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+
+  /* ink scale -> soft white (text on every section) */
+  --primitive-color--neutral-0:#e9eef7;
+  --primitive-color--neutral-100:#e9eef7;
+  --primitive-color--primary-900:#e9eef7;
+  --primitive-color--primary-800:#dde4f1;
+  --primitive-color--primary-700:#c7d3ea;
+  --primitive-color--primary-600:#93b0e4;   /* highlighted words */
+  --primitive-color--primary-500:#7ea6e0;   /* brand accent */
+  --primitive-color--primary-400:#9aabca;
+  --primitive-color--black:#e9eef7;
+
+  /* paper scale -> dark slate (backgrounds / hairlines) */
+  --primitive-color--neutral-50:#0d1320;
+  --primitive-color--neutral-200:#141c2c;
+  --primitive-color--neutral-300:#141c2c;
+  --primitive-color--neutral-400:#2a3550;
+  --primitive-color--gray-400:#0e1420;
+
+  /* muted greys -> cool grey */
+  --primitive-color--gray-500:#93a0ba;
+  --primitive-color--gray-600:#8b98b2;
+  --primitive-color--gray-700:#8a97b0;
+  --primitive-color--gray-800:#818fab;
+
+  --dapdc-bg:#0a0e17;        /* page              */
+  --dapdc-panel:#111725;     /* dark section      */
+  --dapdc-card:#171f30;      /* raised card       */
+  --dapdc-line:rgba(255,255,255,.09);
+}
+
+:root[data-theme="dark"] body{background-color:var(--dapdc-bg);}
+
+/* sections that are dark or photo-backed in light mode -> flat dark panel */
+:root[data-theme="dark"] .section_hero,
+:root[data-theme="dark"] .section_story,
+:root[data-theme="dark"] .section_team,
+:root[data-theme="dark"] .section_testimonial,
+:root[data-theme="dark"] .testimonial_block,
+:root[data-theme="dark"] .section_cta,
+:root[data-theme="dark"] .section_footer,
+:root[data-theme="dark"] .our-info_wrap,
+:root[data-theme="dark"] .cta_component,
+:root[data-theme="dark"] .footer_component{
+  background-color:var(--dapdc-panel) !important;
+  background-image:none !important;
+}
+:root[data-theme="dark"] .section_hero *,
+:root[data-theme="dark"] .section_team *,
+:root[data-theme="dark"] .section_testimonial *,
+:root[data-theme="dark"] .section_cta *,
+:root[data-theme="dark"] .section_footer *,
+:root[data-theme="dark"] .our-info_wrap *{
+  border-color:var(--dapdc-line);
+}
+
+/* coloured / white cards -> raised dark card */
+:root[data-theme="dark"] .service_item,
+:root[data-theme="dark"] .team-item_content,
+:root[data-theme="dark"] .faq_cta,
+:root[data-theme="dark"] .value_item,
+:root[data-theme="dark"] .blog-item_icon-wrap,
+:root[data-theme="dark"] .story-slider_arrow-wrap,
+:root[data-theme="dark"] .awards-tabs_link,
+:root[data-theme="dark"] .our-story_item,
+:root[data-theme="dark"] .blog-item_wrap,
+:root[data-theme="dark"] .blog_item,
+:root[data-theme="dark"] .faq_item,
+:root[data-theme="dark"] .testimonial-slider_card{
+  background-color:var(--dapdc-card) !important;
+  background-image:none !important;
+}
+
+/* translucent-white chips inside service cards */
+:root[data-theme="dark"] .service-item_tag{
+  background-color:rgba(255,255,255,.10) !important;
+  color:#e9eef7 !important;
+}
+
+/* "why choose us" accordion uses a hard-coded near-black text colour */
+:root[data-theme="dark"] .tabs-accordion_item,
+:root[data-theme="dark"] .tabs-accordion_header,
+:root[data-theme="dark"] .tabs-accordion_header-title,
+:root[data-theme="dark"] .tabs-accordion_info-inner,
+:root[data-theme="dark"] .tabs-accordion_info-inner *{
+  color:#e9eef7 !important;
+}
+
+/* nav + menus */
+:root[data-theme="dark"] .navbar_link,
+:root[data-theme="dark"] .navbar_link div,
+:root[data-theme="dark"] .navbar-dropdown_link,
+:root[data-theme="dark"] .navbar-dropdown_link div,
+:root[data-theme="dark"] .navbar-dropdown_toggle,
+:root[data-theme="dark"] .navbar-dropdown_toggle div{color:#e9eef7 !important;}
+:root[data-theme="dark"] .navbar-dropdown_list,
+:root[data-theme="dark"] .navbar-dropdown_list.w--open{background-color:var(--dapdc-bg) !important;}
+/* NOTE: .navbar_menu is intentionally excluded above — it's also the
+   desktop inline nav-links row, and painting it opaque here covered the
+   liquid-glass header (section 7) with a solid black box on desktop.
+   The mobile dropdown panel already gets its own dark background from
+   the more specific @media (max-width:991px) rules further down. */
+:root[data-theme="dark"] .navbar_toggler-bar-bottom,
+:root[data-theme="dark"] .navbar-toggler_bar_top,
+:root[data-theme="dark"] .navbar-toggler_bar-middle{background-color:#e9eef7 !important;}
+
+/* form card + fields */
+:root[data-theme="dark"] .lead-form_card,
+:root[data-theme="dark"] [class*="form_card"]{
+  background-color:#141c2c !important;color:#e9eef7;border-color:var(--dapdc-line);
+}
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select{
+  background-color:#0d1320 !important;color:#e9eef7;border-color:var(--dapdc-line);
+}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder{color:#93a0ba;}
+
+/* primary buttons: dark pill + light label (avoids glaring white in dark mode) */
+:root[data-theme="dark"] .button_primary{
+  background-color:#1b2740 !important;
+  border:1px solid var(--dapdc-line) !important;
+}
+:root[data-theme="dark"] .button_primary,
+:root[data-theme="dark"] .button_primary div,
+:root[data-theme="dark"] .button_primary path{color:#e9eef7 !important;stroke:#e9eef7 !important;}
+:root[data-theme="dark"] .button_primary:hover{background-color:#2f4d80 !important;}
+
+/* keep real photos looking natural, just take the edge off */
+:root[data-theme="dark"] img:not([src*="logo"]){filter:brightness(.92);}
+
+/* ---------- 3. Language: Hindi font --------------------------------- */
+:root[lang="hi"] body,
+:root[lang="hi"] input,
+:root[lang="hi"] textarea,
+:root[lang="hi"] button{
+  font-family:"Noto Sans Devanagari","Sora",-apple-system,"Segoe UI",sans-serif;
+}
+
+/* the hero headline uses a per-character split animation that only makes
+   sense for Latin text — show it plainly in Hindi                      */
+:root[lang="hi"] .hero-text-split{opacity:1 !important;transform:none !important;}
+
+/* ---------- 4. Overflow guard + mobile menu fix --------------------- */
+html,body{overflow-x:clip;}
+@supports not (overflow:clip){ html,body{overflow-x:hidden;} }
+img,svg,video,iframe{max-width:100%;}
+
+/* Webflow export leaves the mobile menu translated off-screen when opened.
+   .dapdc-nav-open is set on <html> by i18n-theme.js while the hamburger is open. */
+@media (max-width:991px){
+  .dapdc-nav-open .navbar_menu.w-nav-menu{
+    transform:none !important;
+    max-height:calc(100vh - 64px);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    background:#ffffff;
+    padding:14px 22px 26px;
+    box-shadow:0 24px 48px -20px rgba(1,31,35,.35);
+  }
+  :root[data-theme="dark"] .dapdc-nav-open .navbar_menu.w-nav-menu{ background:#081231; }
+  .dapdc-nav-open .navbar_link,
+  .dapdc-nav-open .navbar-dropdown_toggle{ padding:12px 0; }
+}
+
+/* keep the (now longer) primary nav on one line */
+@media (min-width:992px){
+  .navbar_menu .navbar_link div,
+  .navbar_menu .navbar-dropdown_toggle > div{ white-space:nowrap; }
+}
+
+/* ---------- 5. Floating WhatsApp button ---------------------------- */
+.dapdc-wa{
+  position:fixed;
+  right:18px; bottom:18px;
+  z-index:2147483000;
+  width:56px; height:56px;
+  display:flex; align-items:center; justify-content:center;
+  background:#25D366;
+  border-radius:50%;
+  box-shadow:0 8px 24px -4px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+  text-decoration:none;
+  transition:transform .15s ease, box-shadow .15s ease;
+  animation:dapdc-wa-pulse 2.6s ease-out infinite;
+}
+.dapdc-wa:hover{ transform:scale(1.06); box-shadow:0 12px 30px -6px rgba(0,0,0,.4); }
+.dapdc-wa svg{ width:30px; height:30px; display:block; }
+@keyframes dapdc-wa-pulse{
+  0%   { box-shadow:0 8px 24px -4px rgba(0,0,0,.35), 0 0 0 0 rgba(37,211,102,.45); }
+  70%  { box-shadow:0 8px 24px -4px rgba(0,0,0,.35), 0 0 0 16px rgba(37,211,102,0); }
+  100% { box-shadow:0 8px 24px -4px rgba(0,0,0,.35), 0 0 0 0 rgba(37,211,102,0); }
+}
+@media (max-width:479px){
+  .dapdc-wa{ right:14px; bottom:14px; width:52px; height:52px; }
+  .dapdc-wa svg{ width:28px; height:28px; }
+}
+@media (prefers-reduced-motion:reduce){ .dapdc-wa{ animation:none; } }
+
+/* ---------- 6. Logo sizing (30% smaller than template default) ------ */
+.navbar_logo .logo_image,
+a.navbar_logo img{ width:98px !important; height:auto !important; }
+.footer_brand .brand_logo,
+a.footer_brand img,
+.brand_logo{ width:98px !important; height:auto !important; }
+@media (max-width:479px){
+  .navbar_logo .logo_image, a.navbar_logo img{ width:88px !important; }
+}
+
+/* ---------- 7. Liquid-glass header + mobile menu ------------------- *
+ * The header is a dark element on every page, so the glass is navy-tinted
+ * in both themes (frosts the hero behind it; frosts light content when
+ * scrolled). Menu text stays white to match.                            */
+.navbar_wrap{
+  position:-webkit-sticky; position:sticky; top:0;
+  background-color:transparent !important;
+  background-image:linear-gradient(180deg, rgba(8,16,46,.78), rgba(8,16,46,.60)) !important;
+  -webkit-backdrop-filter:blur(20px) saturate(155%);
+  backdrop-filter:blur(20px) saturate(155%);
+  border-bottom:1px solid rgba(255,255,255,.16) !important;
+  box-shadow:0 10px 30px -16px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.14);
+}
+
+@media (max-width:991px){
+  /* full-screen scrim: blur + dim the whole page behind the menu */
+  .dapdc-nav-open .w-nav-overlay{
+    background:rgba(4,7,20,.76) !important;
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    backdrop-filter:blur(16px) saturate(140%);
+  }
+  /* the menu sheet: frosted navy-glass card */
+  .dapdc-nav-open .navbar_menu.w-nav-menu{
+    background:linear-gradient(180deg, rgba(18,29,70,.94), rgba(9,15,42,.96)) !important;
+    -webkit-backdrop-filter:blur(34px) saturate(190%);
+    backdrop-filter:blur(34px) saturate(190%);
+    border:1px solid rgba(255,255,255,.14) !important; border-top:0 !important;
+    border-radius:0 0 26px 26px !important;
+    box-shadow:0 44px 100px -26px rgba(0,0,0,.72), inset 0 1px 0 rgba(255,255,255,.16) !important;
+    padding:10px 14px 20px !important;
+    margin-top:0 !important;
+  }
+
+  /* each nav link -> a tappable card row */
+  .dapdc-nav-open .navbar_link{
+    display:flex !important; align-items:center; gap:14px;
+    padding:14px 15px !important; margin:0 0 6px !important;
+    border:0 !important; border-radius:16px !important;
+    color:#eef2fb !important; text-decoration:none;
+    position:relative;
+    opacity:0; animation:dapdcMenuItem .42s cubic-bezier(.22,1,.36,1) forwards;
+    transition:background-color .18s ease;
+  }
+  .dapdc-nav-open .navbar_link div{ color:#eef2fb !important; font-weight:600; font-size:16px; letter-spacing:0; }
+  .dapdc-nav-open .navbar_link::before{
+    content:""; flex:0 0 22px; width:22px; height:22px;
+    background:center / 22px no-repeat; opacity:.92;
+  }
+  .dapdc-nav-open .navbar_link::after{
+    content:""; margin-left:auto; width:7px; height:7px;
+    border-right:2px solid rgba(255,255,255,.45); border-top:2px solid rgba(255,255,255,.45);
+    transform:rotate(45deg); transition:transform .18s ease, border-color .18s ease;
+  }
+  .dapdc-nav-open .navbar_link:hover,
+  .dapdc-nav-open .navbar_link:active{ background-color:rgba(255,255,255,.09) !important; }
+  .dapdc-nav-open .navbar_link:hover::after{ transform:translateX(3px) rotate(45deg); border-color:#fff; }
+
+  /* current page */
+  .dapdc-nav-open .navbar_link.w--current{
+    background:linear-gradient(90deg, rgba(126,166,224,.32), rgba(126,166,224,.05)) !important;
+    box-shadow:inset 3px 0 0 #7EA6E0;
+  }
+  .dapdc-nav-open .navbar_link.w--current div{ color:#d3e2fb !important; }
+  .dapdc-nav-open .navbar_link.w--current::before{ opacity:1; }
+
+  /* per-link icons */
+  .dapdc-nav-open .navbar_link[href="/"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5'/%3E%3Cpath d='M5 9.5V21h14V9.5'/%3E%3Cpath d='M9.5 21v-6h5v6'/%3E%3C/svg%3E");}
+  .dapdc-nav-open .navbar_link[href*="about"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.2'/%3E%3Cpath d='M5 20c0-3.6 3-6 7-6s7 2.4 7 6'/%3E%3C/svg%3E");}
+  .dapdc-nav-open .navbar_link[href*="service"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3C5.5 3 4 5 4 8c0 2 .6 3.3 1.2 5.4C6 16 6.4 21 8.4 21c1.6 0 1.5-3.5 3.6-3.5S15 21 16.6 21c2 0 2.4-5 3.2-7.6C20.4 11.3 21 10 21 8c0-3-1.5-5-4-5-2 0-2.6 1.2-4.5 1.2S10 3 8 3Z'/%3E%3C/svg%3E");}
+  .dapdc-nav-open .navbar_link[href*="video"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='12' height='12' rx='2'/%3E%3Cpath d='m15 10 6-3v10l-6-3'/%3E%3C/svg%3E");}
+  .dapdc-nav-open .navbar_link[href*="blog"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='16' height='16' rx='2'/%3E%3Cpath d='M8 9h8M8 13h8M8 17h5'/%3E%3C/svg%3E");}
+  .dapdc-nav-open .navbar_link[href*="login"]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eefc' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 17l5-5-5-5'/%3E%3Cpath d='M15 12H3'/%3E%3Cpath d='M14 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5'/%3E%3C/svg%3E");}
+
+  /* entrance stagger */
+  .dapdc-nav-open .navbar_link:nth-of-type(1){animation-delay:.03s;}
+  .dapdc-nav-open .navbar_link:nth-of-type(2){animation-delay:.07s;}
+  .dapdc-nav-open .navbar_link:nth-of-type(3){animation-delay:.11s;}
+  .dapdc-nav-open .navbar_link:nth-of-type(4){animation-delay:.15s;}
+  .dapdc-nav-open .navbar_link:nth-of-type(5){animation-delay:.19s;}
+  .dapdc-nav-open .navbar_link:nth-of-type(6){animation-delay:.23s;}
+
+  /* CTA block injected by i18n-theme.js */
+  .dapdc-menu-foot{
+    margin-top:12px; padding:14px 11px 2px;
+    border-top:1px solid rgba(255,255,255,.12);
+    display:flex; flex-direction:column; gap:10px;
+    opacity:0; animation:dapdcMenuItem .42s cubic-bezier(.22,1,.36,1) .3s forwards;
+  }
+  .dapdc-menu-foot .dm-cta{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    padding:15px 18px; border-radius:999px;
+    background:#ffffff; color:#091F5B;
+    font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase;
+    text-decoration:none;
+    box-shadow:0 10px 26px -10px rgba(0,0,0,.5);
+  }
+  .dapdc-menu-foot .dm-cta svg{width:18px;height:18px;fill:currentColor;}
+  .dapdc-menu-foot .dm-row{display:flex; gap:10px;}
+  .dapdc-menu-foot .dm-row a{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:12px; border-radius:13px;
+    border:1px solid rgba(255,255,255,.18); color:#eef2fb;
+    font-weight:600; font-size:13.5px; text-decoration:none;
+  }
+  .dapdc-menu-foot .dm-row a:active{background:rgba(255,255,255,.09);}
+  .dapdc-menu-foot .dm-row svg{width:15px;height:15px;fill:currentColor;}
+}
+@keyframes dapdcMenuItem{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+@media (prefers-reduced-motion:reduce){
+  .dapdc-nav-open .navbar_link,
+  .dapdc-menu-foot{ animation:none !important; opacity:1 !important; transform:none !important; }
+}
+
+/* browsers without backdrop-filter: fall back to solid navy */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .navbar_wrap{ background-image:none !important; background-color:rgba(9,20,54,.94) !important; }
+  .dapdc-nav-open .w-nav-overlay{ background:rgba(6,10,26,.6) !important; }
+  .dapdc-nav-open .navbar_menu.w-nav-menu{ background:#0a1030 !important; }
+}
