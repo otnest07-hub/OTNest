@@ -42,12 +42,16 @@ npx serve .
 - **Domain is a placeholder** (`otnest.in` in canonical/OG tags and `sitemap.xml`) — nothing is
   deployed or DNS-configured. Confirm the real domain before publishing, and add a `CNAME` file
   only once it's owned and pointed at GitHub Pages (or skip it entirely for another host).
-- **Imagery was not regenerated or visually inspected.** Every photo is still the AI-generated
-  art from the dental build (`assets/img/gen_*.jpg`). Filenames suggest generic clinic/portrait
-  shots for most of it (team, hero, testimonials, "our story"), but the 4 service showcase images
-  behind the specialty cards were originally captioned "Dental Veneers / Crowns & Bridges / Braces"
-  etc. — the pixels themselves were never actually opened and checked, so they may still visibly
-  show teeth or a dental setting under the new physiotherapy labels. Worth a real photo shoot or
-  an AI-image regeneration pass — and at minimum a visual check of those 4 — before this goes live.
+- **Imagery has been replaced and visually verified.** Every dental-era `gen_*.jpg` photo is gone.
+  People-depicting shots (the doctor portrait, hero, testimonials, service cards) were re-sourced
+  from Pexels, each one opened and checked before use — Dr. Satish and all three named testimonials
+  (cricketer, software engineer, retired officer) are Indian, matched to their stated role/age.
+  Two of the original stock photos had a real stranger's name legible on an embroidered badge
+  (one even a different real clinic's branding) and were replaced for that reason alone, not just
+  style. A handful of decorative/equipment shots (job listings, locations, "success" stats, awards)
+  are still generic Webflow stock with no visible people or branding issue — fine to leave, or swap
+  for real clinic photos later. Licensing note: the Pexels photos are free-to-use stock under the
+  Pexels license, not photos of OT Nest's actual staff or patients — swap in real photography
+  (with consent) whenever the clinic can provide it.
 - Cal.com, Supabase, and the domain above are the three "pending real credentials" items —
   see the section above for exactly what to fill in and where.
