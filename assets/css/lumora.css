@@ -2253,7 +2253,7 @@ textarea.w-input, textarea.w-select {
 
 .w-checkbox-input--inputType-custom.w--redirected-checked {
   background-color: #3898ec;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4737,7 +4737,6 @@ figure {
 }
 
 .section_testimonial.is-home {
-  background-image: url("../img/otnest-bootcamp.jpg");
   background-position: 50% 100%;
   background-size: cover;
   background-attachment: fixed;
@@ -5663,7 +5662,7 @@ figure {
   width: var(--_max-width---max-width--100);
   height: var(--_max-width---max-width--100);
   border-radius: var(--_size-variables---border-radius--2xl);
-
+  background-color: var(--primitive-color--neutral-100, #EEF4FB);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -6653,7 +6652,7 @@ figure {
 
 .team-main_image {
   z-index: 1;
-
+  background-color: var(--primitive-color--neutral-100, #EEF4FB);
   background-position: 50% 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -6691,7 +6690,7 @@ figure {
   font-size: var(--_font---font-size-semantics--body-base);
   line-height: var(--_font---line-height--150);
   letter-spacing: var(--_font---letter-spacing--0-32px);
-
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23697C92%27 stroke-width=%271.5%27%3E%3Cpath d=%27M3 6h18v12H3z%27/%3E%3Cpath d=%27M3 7l9 6 9-6%27/%3E%3C/svg%3E");
   background-position: 16px;
   background-repeat: no-repeat;
   transition: border-color .35s, color .35s;
@@ -9079,7 +9078,7 @@ figure {
 @media (max-width:991px){.lead-form_card{max-width:100%;}}
 
 /* ===== Closing CTA photo section + footer polish ===== */
-.section_cta{position:relative;background-image:linear-gradient(115deg, rgba(9,31,91,.90), rgba(12,37,96,.82)), url('../img/otnest-clinic-lobby.jpg');background-size:cover;background-position:center;}
+.section_cta{position:relative;background-image:linear-gradient(115deg, #091F5B, #0C2560);background-size:cover;background-position:center;}
 .footer{border-top:3px solid var(--primitive-color--primary-500,#3B63A8);}
 footer{border-top:3px solid var(--primitive-color--primary-500,#3B63A8);}
 
@@ -9104,7 +9103,7 @@ footer{border-top:3px solid var(--primitive-color--primary-500,#3B63A8);}
 
 /* ===== Testimonial card: greenery photo background + cyan overlay ===== */
 .testimonial-slider_card{
-  background-image:linear-gradient(160deg, rgba(9,31,91,.88), rgba(59,99,168,.82)), url('../img/otnest-bootcamp.jpg')!important;
+  background-image:linear-gradient(160deg, #091F5B, #3B63A8)!important;
   background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;
 }
 .testimonial-slider_card, .testimonial-slider_card h1,.testimonial-slider_card h2,.testimonial-slider_card h3,
@@ -9114,7 +9113,7 @@ footer{border-top:3px solid var(--primitive-color--primary-500,#3B63A8);}
 .testimonial-slider_card .testimonial-author_image{border:3px solid rgba(255,255,255,.6);}
 
 /* ===== Team section: greenery clinic background + cyan overlay ===== */
-.section_team{background-image:linear-gradient(160deg, rgba(12,37,96,.88), rgba(59,99,168,.82)), url('../img/otnest-consultation.jpg')!important;background-size:cover!important;background-position:center!important;background-attachment:fixed;}
+.section_team{background-image:linear-gradient(160deg, #0C2560, #3B63A8)!important;background-size:cover!important;background-position:center!important;background-attachment:fixed;}
 .section_team .home-team_header-title,.section_team .home-team_header-para{color:#ffffff!important;}
 .section_team .home-team_header-para{color:rgba(255,255,255,.85)!important;}
 .section_team .text-highlighted{color:#7fe3ef!important;}

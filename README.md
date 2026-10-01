@@ -42,13 +42,12 @@ npx serve .
 - **Domain is a placeholder** (`otnest.in` in canonical/OG tags and `sitemap.xml`) — nothing is
   deployed or DNS-configured. Confirm the real domain before publishing, and add a `CNAME` file
   only once it's owned and pointed at GitHub Pages (or skip it entirely for another host).
-- **Imagery is stock, not real.** Every dental AI-photo (`gen_*.jpg`) was deleted — several,
-  including the doctor "portrait" used as the og:image, turned out to visibly show a dental chair,
-  a tooth implant model, or a dental exam on close inspection. They're replaced with 16 Unsplash
-  photos (`assets/img/otnest-*.jpg`), each opened and checked by eye before use and matched to the
-  section it's in (the doctor photo repeats consistently for every "Dr. Satish" slot; the four
-  specialty cards get a distinct, topical photo each). It reads as a real clinic now, but it's
-  still stock — a real photo shoot of Dr. Satish and the two clinics is worth doing before this
-  goes live for real.
+- **Imagery was not regenerated or visually inspected.** Every photo is still the AI-generated
+  art from the dental build (`assets/img/gen_*.jpg`). Filenames suggest generic clinic/portrait
+  shots for most of it (team, hero, testimonials, "our story"), but the 4 service showcase images
+  behind the specialty cards were originally captioned "Dental Veneers / Crowns & Bridges / Braces"
+  etc. — the pixels themselves were never actually opened and checked, so they may still visibly
+  show teeth or a dental setting under the new physiotherapy labels. Worth a real photo shoot or
+  an AI-image regeneration pass — and at minimum a visual check of those 4 — before this goes live.
 - Cal.com, Supabase, and the domain above are the three "pending real credentials" items —
   see the section above for exactly what to fill in and where.
