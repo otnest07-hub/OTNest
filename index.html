@@ -22,7 +22,7 @@
         <link href="/assets/css/lumora.css?v=20260930c" rel="stylesheet" type="text/css"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="/assets/css/home-extras.css?v=4" rel="stylesheet" type="text/css"/>
-  <link href="/assets/css/toggles.css?v=20261003c" rel="stylesheet" type="text/css"/>
+  <link href="/assets/css/toggles.css?v=20261004c" rel="stylesheet" type="text/css"/>
   <script>(function(){try{var t=localStorage.getItem("dapdc_theme");if(t!=="light"&&t!=="dark"){t="light";}document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("lang","en");document.documentElement.setAttribute("dir","ltr");}catch(e){}})();</script>
         <link href="https://fonts.googleapis.com" rel="preconnect"/>
         <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -42,69 +42,33 @@
 </head>
     <body>
         <div class="page-wrapper">
-            <div data-collapse="medium" data-animation="default" data-duration="400" fs-scrolldisable-element="smart-nav" data-easing="ease" data-easing2="ease" role="banner" class="navbar_wrap w-nav">
-                <div class="navbar_container">
-                    <a href="/" aria-current="page" class="navbar_logo w-nav-brand w--current">
-                        <img loading="eager" src="/assets/img/otnest-logo-white.png?v=2" alt="OT Nest Occupational and Physiotherapy Centre" class="logo_image"/>
-                    </a>
-                    <div class="navbar-content_wrap">
-                        <nav role="navigation" class="navbar_menu w-nav-menu">
-                            <a href="/" aria-current="page" class="navbar_link w-inline-block w--current">
-                                <div>Home</div>
-                            </a>
-                            <a href="/about/" class="navbar_link w-inline-block">
-                                <div>About</div>
-                            </a>
-                            <a href="/service/" class="navbar_link w-inline-block">
-                                <div>Services</div>
-                            </a>
-                            <a href="/home-visit-physiotherapy/" class="navbar_link w-inline-block"><div>Home Visits</div></a>
-                            <a href="/video-consultation/" class="navbar_link w-inline-block"><div>Video Consult</div></a>
-                            <a href="/blog/" class="navbar_link w-inline-block">
-                                <div>Blog</div>
-                            </a>
-                            <a href="/login/" class="navbar_link w-inline-block"><div>Login</div></a>
-                        
-                        </nav>
-                        <div class="navbar-button_wrapper">
-                            <div class="navbar_button hide-mobile">
-                                <div class="button-container">
-                                    <a data-wf--button-primary--variant="light-small" href="/book/" class="button_primary w-variant-fb89ee7f-8db1-8e54-55c6-075f0151c951 w-inline-block">
-                                        <div class="button_inner">
-                                            <div class="button-text_wrap">
-                                                <div class="button_text">Get Appointment</div>
-                                            </div>
-                                            <div class="button-icon_group w-variant-fb89ee7f-8db1-8e54-55c6-075f0151c951">
-                                                <div class="button-icon_wrap w-variant-fb89ee7f-8db1-8e54-55c6-075f0151c951">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 12" fill="none" vector-effect="non-scaling-stroke" preserveAspectRatio="none">
-                                                        <path d="M4.70139 0.75L10.5303 0.750201L10.5303 6.55165M0.530334 10.75L10.2896 0.990932" stroke="currentColor" stroke-width="1.5"></path>
-                                                    </svg>
-                                                </div>
-                                                <div class="button-icon_wrap w-variant-fb89ee7f-8db1-8e54-55c6-075f0151c951 is-hover">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 12" fill="none" vector-effect="non-scaling-stroke" preserveAspectRatio="none">
-                                                        <path d="M4.70139 0.75L10.5303 0.750201L10.5303 6.55165M0.530334 10.75L10.2896 0.990932" stroke="currentColor" stroke-width="1.5"></path>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-
-                            </div>
-                            <div class="navbar-toggler-button w-nav-button">
-                                <div class="navbar-toggle_icon">
-                                    <div class="navbar-toggler_bar_top"></div>
-                                    <div class="navbar-toggler_bar-middle">
-                                        <div class="navbar-toggler_bar-middle_inner"></div>
-                                    </div>
-                                    <div class="navbar_toggler-bar-bottom"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <header class="otn-hd">
+  <div class="otn-hd__bar">
+    <a class="otn-hd__logo" href="/"><img src="/assets/img/otnest-logo-white.png?v=2" alt="OT Nest Occupational and Physiotherapy Centre" width="98" height="31"/></a>
+    <nav class="otn-hd__nav" id="otn-hd-nav" aria-label="Main">
+      <ul class="otn-hd__list">
+        <li><a class="otn-hd__link" data-i="home" href="/">Home</a></li>
+        <li><a class="otn-hd__link" data-i="about" href="/about/">About</a></li>
+        <li><a class="otn-hd__link" data-i="services" href="/service/">Services</a></li>
+        <li><a class="otn-hd__link" data-i="visits" href="/home-visit-physiotherapy/">Home Visits</a></li>
+        <li><a class="otn-hd__link" data-i="video" href="/video-consultation/">Video Consult</a></li>
+        <li><a class="otn-hd__link" data-i="blog" href="/blog/">Blog</a></li>
+        <li><a class="otn-hd__link" data-i="login" href="/login/">Login</a></li>
+      </ul>
+      <div class="otn-hd__foot">
+        <a class="otn-hd__foot-cta" href="/book/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2V2Zm12 8H5v9h14v-9Z"/></svg>Book an appointment</a>
+        <div class="otn-hd__foot-row">
+          <a href="tel:+917549377608"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.9 15.9 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.24 1z"/></svg>Call</a>
+          <a href="https://wa.me/917549377608?text=Hi%2C%20I'd%20like%20to%20book%20an%20appointment%20with%20OT%20Nest." target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5.3A10.7 10.7 0 0 0 6.8 21.3L5.3 26.7l5.5-1.4A10.7 10.7 0 1 0 16 5.3Zm0 19.2a8.9 8.9 0 0 1-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3A8.9 8.9 0 1 1 16 24.5Zm4.9-6.6c-.3-.2-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1s-.7.9-.9 1-.3.2-.6.1a7.3 7.3 0 0 1-3.6-3.2c-.3-.5.3-.4.7-1.4.1-.2 0-.3 0-.5s-.6-1.5-.8-2-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c2.3 1 2.3.7 2.7.6a2.6 2.6 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3Z"/></svg>WhatsApp</a>
+        </div>
+      </div>
+    </nav>
+    <div class="otn-hd__actions">
+      <a class="otn-hd__cta" href="/book/">Get Appointment<span class="otn-hd__cta-ico" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M4.70139 0.75L10.5303 0.750201L10.5303 6.55165M0.530334 10.75L10.2896 0.990932" stroke="currentColor" stroke-width="1.5"/></svg></span></a>
+      <button class="otn-hd__burger" type="button" aria-expanded="false" aria-controls="otn-hd-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
             <main class="main-wrapper">
                 <header class="section_hero is-home-hero">
                     <div class="section-padding padding-home-hero">
@@ -1965,12 +1929,12 @@
 })();
 </script>
 
-  <script src="/assets/js/i18n-theme.js?v=20260930ab"></script>
+  <script src="/assets/js/i18n-theme.js?v=20261004b"></script>
   <script src="/assets/js/supabase-config.js?v=1"></script>
   <script src="/assets/js/supabase-load.js?v=1"></script>
   <script src="/assets/js/auth-nav.js?v=1"></script>
 <a href="https://wa.me/917549377608?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment%20with%20OT%20Nest." class="dapdc-wa" target="_blank" rel="noopener" aria-label="Chat with OT Nest Occupational &amp; Physiotherapy Centre on WhatsApp"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="#fff" d="M16.004 5.333c-5.887 0-10.667 4.78-10.667 10.667 0 1.88.492 3.72 1.427 5.341L5.333 26.667l5.503-1.442a10.63 10.63 0 0 0 5.168 1.316h.004c5.887 0 10.667-4.78 10.667-10.667 0-2.85-1.11-5.53-3.127-7.546a10.6 10.6 0 0 0-7.545-3.129zm0 19.2h-.003a8.86 8.86 0 0 1-4.512-1.236l-.324-.192-3.266.856.872-3.184-.211-.327a8.85 8.85 0 0 1-1.357-4.716c0-4.897 3.985-8.881 8.885-8.881a8.82 8.82 0 0 1 6.28 2.604 8.82 8.82 0 0 1 2.6 6.283c0 4.898-3.985 8.882-8.884 8.882zm4.87-6.65c-.267-.134-1.58-.78-1.825-.868-.245-.09-.423-.134-.601.133-.178.267-.69.868-.846 1.046-.156.178-.312.2-.579.067-.267-.134-1.127-.416-2.147-1.325-.794-.708-1.33-1.582-1.486-1.849-.156-.267-.017-.411.117-.544.12-.12.267-.312.4-.468.135-.156.178-.267.267-.445.09-.178.045-.334-.022-.468-.067-.133-.601-1.449-.824-1.984-.217-.52-.437-.45-.601-.458l-.512-.009c-.178 0-.467.067-.712.334-.245.267-.935.913-.935 2.229 0 1.315.957 2.585 1.09 2.763.134.178 1.884 2.876 4.564 4.033.638.276 1.135.44 1.523.563.64.204 1.222.175 1.683.106.513-.076 1.58-.646 1.803-1.27.223-.623.223-1.157.156-1.269-.067-.111-.245-.178-.512-.312z"/></svg></a>
-<script src="/assets/js/mobile-bar.js?v=1" defer></script>
+<script src="/assets/js/mobile-bar.js?v=3" defer></script>
 <script src="/assets/js/body-map.js?v=1" defer></script>
 </body>
 </html>

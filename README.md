@@ -26,6 +26,10 @@ npx serve .
   `/stroke-rehabilitation/`, `/autism-adhd-occupational-therapy/`) and `/home-visit-physiotherapy/`.
 - Home-only sections: "Where does it hurt?" body map (`assets/js/body-map.js`) and "Plan your
   visit", styled by `assets/css/home-extras.css`.
+- **One shared header on every page** (`<header class="otn-hd">`, styles in `toggles.css` section 7,
+  menu behaviour in `assets/js/i18n-theme.js`). It replaced the Webflow navbar, whose phone menu
+  left an invisible full-page layer after closing that blocked every tap. If you change a menu
+  link, change it in all pages (search for `otn-hd__list`).
 - Every page loads `assets/js/mobile-bar.js` (Call / WhatsApp / Book bar on phones, replacing the
   floating WhatsApp bubble below 768px).
 

@@ -13,10 +13,6 @@ body{margin:0;background:var(--ar-bg);color:var(--ar-body);
   line-height:1.65;overflow-x:hidden;}
 img,svg{max-width:100%;}
 
-.ar-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
-  max-width:820px;margin:0 auto;padding:16px 22px;}
-.ar-nav a{color:var(--ar-mut);text-decoration:none;font-size:14px;}
-.ar-nav .ar-logo img{height:30px;width:auto!important;object-fit:contain!important;aspect-ratio:auto!important;display:block;}
 
 .ar-wrap{max-width:720px;margin:0 auto;padding:16px 22px 80px;}
 .ar-kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.6px;
@@ -48,8 +44,6 @@ img,svg{max-width:100%;}
 .ar-disclaimer{max-width:720px;margin:40px auto 0;padding:0 22px;color:var(--ar-mut);font-size:12px;}
 
 /* landing pages: locations, conditions, home visits */
-.ar-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
-.ar-links .ar-links-cta{color:var(--ar-accent);font-weight:600;}
 .ar-crumbs{font-size:13px;color:var(--ar-mut);margin:0 0 14px;}
 .ar-crumbs a{color:var(--ar-mut);text-decoration:none;}
 .ar-crumbs a:hover{color:var(--ar-accent);}
@@ -77,9 +71,4 @@ img,svg{max-width:100%;}
 .ar-foot h5{color:var(--ar-ink);font-size:13px;margin:0 0 6px;letter-spacing:.4px;}
 .ar-foot p{margin:0 0 6px;}
 .ar-foot a{color:var(--ar-accent);text-decoration:none;}
-@media (max-width:600px){ .ar-links a:not(.ar-links-cta){display:none;} }
 
-/* logo swaps with theme */
-.ar-nav .ar-logo .lo-dark{display:none;}
-:root[data-theme="dark"] .ar-nav .ar-logo .lo-light{display:none;}
-:root[data-theme="dark"] .ar-nav .ar-logo .lo-dark{display:block;}
