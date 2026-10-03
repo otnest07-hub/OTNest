@@ -1,14 +1,16 @@
-# OT Nest Physiotherapy Clinic
+# OT Nest Occupational & Physiotherapy Centre
 
 Website re-skinned from the Lumora template (the same engine used for the Dr. Asim Prakash
-Dental Clinic build) for a new business: **OT Nest**, a physiotherapy clinic with locations
-in **Patna and Gurgaon**, run by **Dr. Satish** (MPT — Orthopaedics, Dry Needling Certified).
+Dental Clinic build) for a new business: **OT Nest**, an occupational therapy and physiotherapy
+practice with clinics in **Patna and Gurgaon** plus home visits in both cities, run by
+**Dr. Satish** — occupational therapist and physiotherapist, MPT (Orthopaedics), dry-needling
+certified, studied at TMU Medical College & Research Centre.
 
-All content facts came from the client's own `otnest_booking 2.0.html` reference file: brand
-name, doctor identity, phone (+91 75493 77608), email (otnest07@gmail.com), the two clinic
-addresses, the six specialities (Sports Rehab, Post-Surgery Recovery, Back & Spine, Neurological,
-Paediatric, Geriatric), stats, and the patient testimonials. The 3 blog articles linked from the
-home page (plus 3 more reachable from `/blog/`) are original writing, not from that file.
+Content facts came from the client's own `otnest_booking 2.0.html` reference file (name, phone
++91 75493 77608, email otnest07@gmail.com, both addresses, specialities, stats, testimonials,
+hours) and from the client's direct answers (OT practice, home visits, no public fees, Sunday
+closed, domain `otnest.online`, Gurgaon Google Business Profile, Facebook page). Blog articles and
+the treatment/location pages are original writing.
 
 ## Run locally
 ```
@@ -16,42 +18,58 @@ npx serve .
 ```
 (No build step — plain static HTML/CSS/JS, same as the source template.)
 
+## Site structure
+- Main pages (Webflow-derived): `/`, `/about/`, `/service/`, `/blog/`.
+- Lighter pages on the article template (`assets/css/article.css`): six blog posts, two location
+  pages (`/physiotherapy-patna/`, `/physiotherapy-gurgaon/`), five condition pages
+  (`/knee-pain-treatment/`, `/sciatica-treatment/`, `/frozen-shoulder-treatment/`,
+  `/stroke-rehabilitation/`, `/autism-adhd-occupational-therapy/`) and `/home-visit-physiotherapy/`.
+- Home-only sections: "Where does it hurt?" body map (`assets/js/body-map.js`) and "Plan your
+  visit", styled by `assets/css/home-extras.css`.
+- Every page loads `assets/js/mobile-bar.js` (Call / WhatsApp / Book bar on phones, replacing the
+  floating WhatsApp bubble below 768px).
+
+## SEO
+- Canonicals, `og:*` and Twitter tags on every real page, all pointing at `https://otnest.online`,
+  with a branded share image `assets/img/otnest-share.jpg` (1200×630).
+- Structured data: the home page carries the full graph (website, organisation, Dr. Satish, both
+  clinics with address and hours); location pages carry their clinic; condition pages are
+  `MedicalWebPage`; blog posts are `BlogPosting`. No `aggregateRating` — Google doesn't show
+  self-published ratings for local businesses and can penalise them.
+- `sitemap.xml` lists all indexable pages. To change the domain, search-and-replace
+  `otnest.online` site-wide (HTML, `sitemap.xml`, `robots.txt`).
+
 ## Deliberately changed from the cloned Lumora/dental codebase
-- **Language selector removed.** `assets/js/i18n-dict.js` deleted; `i18n-theme.js` now only
-  injects the light/dark theme toggle (the mobile-nav-fix logic is untouched). Every page's head
-  bootstrap script was simplified to drop the `en`/`hi` detection.
-- **Google sign-in removed.** The "Continue with Google" button + its `signInWithOAuth` handler
-  are gone from `login/index.html`. **`assets/js/supabase-config.js` was reset to empty
-  `SUPABASE_URL`/`SUPABASE_ANON_KEY`** — it was pointed at the dental clinic's live Supabase
-  project, which this business must never share. Every auth call already degrades gracefully to
-  a "not connected yet, call/WhatsApp us" message when the client is null, so the login/account
-  pages work as an honest placeholder until OT Nest creates its own Supabase project (run
-  `supabase/schema.sql` against it once it exists) and, separately, enables Google as an OAuth
-  provider there if they still want it.
-- **Cal.com booking link cleared**, same reasoning — `assets/js/cal-config.js` was wired to the
-  dentist's real Cal.com account. Both `CAL_LINK_CLINIC`/`CAL_LINK_VIDEO` are now `""`, so
-  `/book/` falls back to WhatsApp/phone until OT Nest supplies its own Cal.com event links.
-- **New placeholder brand mark**: `assets/img/otnest-logo-navy.svg` / `-white.svg` /
-  `otnest-favicon.svg` (simple wordmark + pulse-line icon in the existing navy palette). Replace
-  with real logo art whenever the client supplies one — same situation the dental project was in
-  before its own logo arrived.
-- `variant-blue/` and the six dental blog articles were not carried over (dead weight for a
-  different business).
+- **Language selector removed**; `i18n-theme.js` only injects the light/dark toggle and the
+  mobile-nav fix. The unused Devanagari font was removed from every page.
+- **Google sign-in removed** and **`assets/js/supabase-config.js` / `cal-config.js` reset to
+  empty values** — they pointed at the dental clinic's live Supabase project and Cal.com account.
+  Login/account and `/book/` degrade to "call/WhatsApp us" until OT Nest supplies its own.
+- **Real client brand mark**: `otnest-logo-navy.png`, `otnest-logo-white.png` (pure-white
+  recolor), `otnest-favicon-32.png` (2 KB) and `otnest-apple-touch.png` (180px, white plate).
+- **Performance**: Sora loads once via a stylesheet link (the blocking WebFont.js loader is gone);
+  duplicate GSAP/ScrollTrigger copies in `<head>` removed; photos served as WebP; unused images
+  deleted. A `<noscript>` rule plus a no-GSAP fallback make sure animated content can never stay
+  invisible.
+- **Honest copy**: template stats (92% comfort, 24/7 support, 7-minute wait…) replaced with the
+  client's real figures; "team", "advanced technology" and "recognized worldwide" claims removed.
+
+## Imagery
+All photos are Pexels stock, each opened and checked before use. Photos showing a real person's
+name or another clinic's branding were rejected or replaced — three so far, including
+`otnest-balance-therapy` (embroidered "Funkcinės Terapijos Centras" on the scrubs). The consultation
+photo was cropped to remove a legible "Hair Mineral Analysis" report. Children's-therapy images
+(`otnest-child-ball-therapy`, `otnest-child-fine-motor`, `otnest-hand-putty`) support the OT side.
+None of these are OT Nest's real staff or patients.
 
 ## Known gaps / next steps
-- **Domain is a placeholder** (`otnest.in` in canonical/OG tags and `sitemap.xml`) — nothing is
-  deployed or DNS-configured. Confirm the real domain before publishing, and add a `CNAME` file
-  only once it's owned and pointed at GitHub Pages (or skip it entirely for another host).
-- **Imagery has been replaced and visually verified.** Every dental-era `gen_*.jpg` photo is gone.
-  People-depicting shots (the doctor portrait, hero, testimonials, service cards) were re-sourced
-  from Pexels, each one opened and checked before use — Dr. Satish and all three named testimonials
-  (cricketer, software engineer, retired officer) are Indian, matched to their stated role/age.
-  Two of the original stock photos had a real stranger's name legible on an embroidered badge
-  (one even a different real clinic's branding) and were replaced for that reason alone, not just
-  style. A handful of decorative/equipment shots (job listings, locations, "success" stats, awards)
-  are still generic Webflow stock with no visible people or branding issue — fine to leave, or swap
-  for real clinic photos later. Licensing note: the Pexels photos are free-to-use stock under the
-  Pexels license, not photos of OT Nest's actual staff or patients — swap in real photography
-  (with consent) whenever the clinic can provide it.
-- Cal.com, Supabase, and the domain above are the three "pending real credentials" items —
-  see the section above for exactly what to fill in and where.
+- **Real photo of Dr. Satish** — the current portrait is a stock model; the client will supply one.
+- **Testimonial avatars** are stock faces beside real patient names — replace with initials or
+  consented photos.
+- **Patna Google Business Profile link** — Patna directions currently use an address search.
+- **Hero "Book a visit" form** only opens WhatsApp; leads are lost if the visitor never presses send.
+  Connect it to an inbox/sheet (Apps Script, Formspree or the future Supabase project).
+- **Login is visible in the menu but has no backend**; the video-consult button opens the
+  generic `meet.google.com` page. Supabase, Cal.com and a Meet room link are pending from the client.
+- **Careers section** on the about page lists three openings — confirm they're real.
+- Not deployed yet; add a `CNAME` only once `otnest.online` points at the host.
