@@ -27,9 +27,18 @@ npx serve .
 - Home-only sections: "Where does it hurt?" body map (`assets/js/body-map.js`) and "Plan your
   visit", styled by `assets/css/home-extras.css`.
 - **One shared header on every page** (`<header class="otn-hd">`, styles in `toggles.css` section 7,
-  menu behaviour in `assets/js/i18n-theme.js`). It replaced the Webflow navbar, whose phone menu
-  left an invisible full-page layer after closing that blocked every tap. If you change a menu
-  link, change it in all pages (search for `otn-hd__list`).
+  behaviour in `assets/js/i18n-theme.js`). It replaced the Webflow navbar, whose phone menu left an
+  invisible full-page layer after closing that blocked every tap. If you change a menu link, change
+  it in all pages (search for `otn-hd__list`).
+- **Liquid-glass styling** (header capsule, desktop nav bead, phone menu card, phone quick bar): the
+  glass is clear and adapts to what is behind it — `i18n-theme.js` samples the page under the
+  capsule/bar and adds `.tone-light` (navy ink, white/navy logo crossfade) over light content. In
+  Chromium it also builds SVG displacement maps (`#otn-lens-bar`, `#otn-lens-dock`) for edge
+  refraction; Safari/Firefox get the same glass without the bending. Solid fallbacks apply when
+  `backdrop-filter` is unsupported or the visitor prefers reduced transparency. The four Webflow
+  pages use `otn-hd--over` so their hero sits under the glass.
+- **Home "Services" gallery on phones** is driven by `assets/js/service-scroll.js` (the Webflow
+  interaction only runs on desktop, which left the cards frozen half off-screen on mobile).
 - Every page loads `assets/js/mobile-bar.js` (Call / WhatsApp / Book bar on phones, replacing the
   floating WhatsApp bubble below 768px).
 
