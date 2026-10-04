@@ -232,6 +232,14 @@ a.footer_brand img,
   --pane:rgba(255,255,255,.46); --pane-2:rgba(255,255,255,.30);
   --chip:rgba(255,255,255,.62); --chip-2:rgba(255,255,255,.34);
 }
+/* mixed light + dark behind the capsule: frost it so navy ink stays legible everywhere */
+.otn-hd.tone-mixed{
+  --ink:#0a1a4a; --ink-soft:rgba(10,26,74,.8); --ink-shadow:none;
+  --pane:rgba(255,255,255,.66); --pane-2:rgba(255,255,255,.52);
+  --chip:rgba(255,255,255,.72); --chip-2:rgba(255,255,255,.45);
+}
+.otn-hd.tone-mixed .otn-hd__bar::before{ -webkit-backdrop-filter:blur(16px) saturate(180%) brightness(1.04); backdrop-filter:blur(16px) saturate(180%) brightness(1.04); }
+.has-lens .otn-hd.tone-mixed .otn-hd__bar::before{ backdrop-filter:url(#otn-lens-bar) blur(14px) saturate(180%) brightness(1.04); }
 .otn-hd--over{ margin-bottom:-84px; }
 .otn-hd *{ box-sizing:border-box; letter-spacing:0; }
 
@@ -271,8 +279,8 @@ a.footer_brand img,
   aspect-ratio:auto !important; object-fit:contain !important; transition:opacity .35s ease; }
 .otn-hd__logo::after{ content:""; position:absolute; inset:0; opacity:0; transition:opacity .35s ease;
   background:url("/assets/img/otnest-logo-navy.png?v=2") center / contain no-repeat; }
-.otn-hd.tone-light .otn-hd__logo img{ opacity:0; }
-.otn-hd.tone-light .otn-hd__logo::after{ opacity:1; }
+.otn-hd.tone-light .otn-hd__logo img, .otn-hd.tone-mixed .otn-hd__logo img{ opacity:0; }
+.otn-hd.tone-light .otn-hd__logo::after, .otn-hd.tone-mixed .otn-hd__logo::after{ opacity:1; }
 @media (max-width:991px){
   :root:not([data-theme="dark"]).otn-nav-open .otn-hd__logo img{ opacity:0; }
   :root:not([data-theme="dark"]).otn-nav-open .otn-hd__logo::after{ opacity:1; }
@@ -490,6 +498,8 @@ a.footer_brand img,
     transition:opacity .25s ease;
   }
   .otn-bar.tone-light{ --ink:#0a1a4a; --pane:rgba(255,255,255,.5); --pane-2:rgba(255,255,255,.34); --chip:rgba(255,255,255,.7); --chip-2:rgba(255,255,255,.4); }
+  .otn-bar.tone-mixed{ --ink:#0a1a4a; --pane:rgba(255,255,255,.66); --pane-2:rgba(255,255,255,.52); --chip:rgba(255,255,255,.78); --chip-2:rgba(255,255,255,.5); }
+  .otn-bar.tone-mixed::before{ -webkit-backdrop-filter:blur(16px) saturate(180%); backdrop-filter:blur(16px) saturate(180%); }
   .otn-bar::before, .otn-bar::after{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; }
   .otn-bar::before{
     z-index:-2; background:linear-gradient(180deg, var(--pane), var(--pane-2));

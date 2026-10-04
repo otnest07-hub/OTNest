@@ -117,3 +117,37 @@
   .x-header{ margin-bottom:32px; }
 }
 @media (prefers-reduced-motion:reduce){ .bm-dot::before{ animation:none; } }
+
+/* "Your Physiotherapist": doctor card beside the counters and stat tiles */
+.otn-team{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:28px; align-items:stretch; }
+.otn-team__doc .team_item{ height:100%; }
+.otn-team__stats{ display:flex; flex-direction:column; gap:20px; min-width:0; }
+.otn-team__counters{
+  flex-direction:row; justify-content:space-around; gap:20px; padding:24px 28px; border-radius:24px;
+  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.45), inset 0 0 0 1px rgba(255,255,255,.08), 0 14px 30px -18px rgba(0,0,0,.5);
+}
+.otn-team__counters .about-hero_info-item{ display:flex; text-align:center; align-items:center; }
+.otn-team__counters .about-hero_info-item_title{ background-image:linear-gradient(180deg, #ffffff, #a9c4f0); font-size:clamp(34px, 4vw, 48px); }
+.otn-team__counters .about-hero_info-item_text{ color:rgba(255,255,255,.78); }
+.otn-team__tiles{ grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:16px; flex:1 1 auto; }
+.otn-team__tiles .success_card{ min-height:230px; padding:24px; gap:16px; }
+.otn-team__tiles .success_card.is-color-01{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.16), inset 0 1.5px 1px rgba(255,255,255,.3); }
+.otn-team__tiles .success-card_title{ font-size:clamp(19px, 2vw, 24px); }
+.otn-team__tiles .success_card p{ margin:0; font-size:15px; line-height:1.5; }
+@media (max-width:991px){
+  .otn-team{ grid-template-columns:1fr; }
+  .otn-team__doc{ max-width:440px; width:100%; margin:0 auto; }
+}
+@media (max-width:479px){
+  .otn-team__counters{ padding:18px 14px; }
+  .otn-team__tiles{ gap:10px; }
+  .otn-team__tiles .success_card{ min-height:190px; padding:16px; }
+  .otn-team__tiles .success-card_title{ font-size:17px; }
+  .otn-team__tiles .success_card p{ font-size:13px; }
+}
+.otn-team__doc .team_image{ width:100%; object-fit:cover; object-position:50% 20%; }
+@media (max-width:991px){
+  /* phones/tablets: a fixed 1080 x 1440 (3:4) portrait frame for the doctor card */
+  .otn-team__doc .team_item{ height:auto; aspect-ratio:1080 / 1440; }
+}

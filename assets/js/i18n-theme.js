@@ -186,11 +186,15 @@
     }
     return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
-  // majority vote across the left, middle and right of a glass element
+  // sample five points across a glass element: all dark, all light, or mixed
   function toneOf(rect, skip) {
-    var y = rect.top + rect.height / 2, votes = 0;
-    [0.12, 0.5, 0.88].forEach(function (f) { if (toneAt(rect.left + rect.width * f, y, skip) === "light") votes++; });
-    return votes >= 2;
+    var y = rect.top + rect.height / 2, light = 0, pts = [0.06, 0.28, 0.5, 0.72, 0.94];
+    pts.forEach(function (f) { if (toneAt(rect.left + rect.width * f, y, skip) === "light") light++; });
+    return light === 0 ? "dark" : light === pts.length ? "light" : "mixed";
+  }
+  function applyTone(el, t) {
+    el.classList.toggle("tone-light", t === "light");
+    el.classList.toggle("tone-mixed", t === "mixed");
   }
 
   /* lens: a displacement map whose red/green channels push pixels toward the
@@ -200,7 +204,7 @@
   var reduced = window.matchMedia("(prefers-reduced-transparency: reduce)").matches;
   var svgNS = "http://www.w3.org/2000/svg", defs = null;
   function lensMap(w, h) {
-    var e = Math.min(h * 0.42, 26), ex = (e / w).toFixed(4), ey = (e / h).toFixed(4);
+    var e = Math.min(h * 0.3, 16), ex = (e / w).toFixed(4), ey = (e / h).toFixed(4);
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">' +
       '<defs><linearGradient id="x"><stop offset="0" stop-color="rgb(0,0,0)"/><stop offset="' + ex + '" stop-color="rgb(128,0,0)"/>' +
       '<stop offset="' + (1 - ex) + '" stop-color="rgb(128,0,0)"/><stop offset="1" stop-color="rgb(255,0,0)"/></linearGradient>' +
@@ -246,9 +250,9 @@
       queued = false;
       var dock = document.querySelector(".otn-bar");
       if (bar && !root.classList.contains("otn-nav-open"))
-        header.classList.toggle("tone-light", toneOf(bar.getBoundingClientRect(), [header, dock, fab]));
+        applyTone(header, toneOf(bar.getBoundingClientRect(), [header, dock, fab]));
       if (dock && dock.offsetWidth)
-        dock.classList.toggle("tone-light", toneOf(dock.getBoundingClientRect(), [header, dock, fab]));
+        applyTone(dock, toneOf(dock.getBoundingClientRect(), [header, dock, fab]));
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
     window.addEventListener("scroll", queue, { passive: true });
@@ -265,10 +269,10 @@
         lens(id, el, s);
         new ResizeObserver(function () { lens(id, el, s); }).observe(el);
       };
-      watch(bar, "otn-lens-bar", 34);
+      watch(bar, "otn-lens-bar", 14);
       var tries = 0, t = setInterval(function () {
         var dock = document.querySelector(".otn-bar");
-        if (dock || ++tries > 20) { clearInterval(t); watch(dock, "otn-lens-dock", 30); }
+        if (dock || ++tries > 20) { clearInterval(t); watch(dock, "otn-lens-dock", 12); }
       }, 150);
     }
   }
