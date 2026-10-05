@@ -151,3 +151,28 @@
   /* phones/tablets: a fixed 1080 x 1440 (3:4) portrait frame for the doctor card */
   .otn-team__doc .team_item{ height:auto; aspect-ratio:1080 / 1440; }
 }
+
+/* Home hero on phones: Dr. Satish's portrait as a band across the top, fading
+   into navy where the headline starts (instead of a full-height background
+   with the headline printed across his face). */
+@media (max-width:767px){
+  .is-home-hero{ --hero-band:min(118vw, 520px); }
+  .is-home-hero .hero-image_wrap{ background:#091F5B !important; }
+  .is-home-hero .hero-image_wrap::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:var(--hero-band);
+    background:url("/assets/img/otnest-doctor-portrait.webp?v=2") 50% 16% / cover no-repeat;
+  }
+  .is-home-hero .hero_overlay.is-gradient{
+    background-image:linear-gradient(180deg,
+      rgba(9,31,91,.28) 0, rgba(9,31,91,0) 110px,
+      rgba(9,31,91,0) calc(var(--hero-band) - 210px),
+      rgba(9,31,91,.9) calc(var(--hero-band) - 60px),
+      #091F5B var(--hero-band)) !important;
+  }
+  .is-home-hero .padding-home-hero{ padding-top:calc(var(--hero-band) - 110px) !important; }
+}
+
+/* Services gallery is driven by service-scroll.js (it moves .scroll_list);
+   keep the old Webflow interaction from also moving the track. */
+.section_service .scroll_track{ transform:none !important; }
+.section_service .scroll_list{ will-change:transform; }

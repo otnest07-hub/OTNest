@@ -76,7 +76,7 @@ photo was cropped to remove a legible "Hair Mineral Analysis" report. Children's
 None of these are OT Nest's real staff or patients.
 
 ## Known gaps / next steps
-- **Real photo of Dr. Satish** — the current portrait is a stock model; the client will supply one.
+- **Dr. Satish photo is real** (supplied by the client): `otnest-doctor-portrait.webp` (1080×1440 cards), `otnest-doctor-1.webp` (4:5, phone hero + About card), `otnest-doctor-hero.webp` (desktop hero banner, wall backdrop extended from the photo) and the About careers/awards tiles. The lanyard shows "BLK-MAX" branding — swap in a photo without it if the clinic prefers.
 - **Testimonial avatars** are stock faces beside real patient names — replace with initials or
   consented photos.
 - **Patna Google Business Profile link** — Patna directions currently use an address search.
