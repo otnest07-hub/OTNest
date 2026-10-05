@@ -176,3 +176,17 @@
    keep the old Webflow interaction from also moving the track. */
 .section_service .scroll_track{ transform:none !important; }
 .section_service .scroll_list{ will-change:transform; }
+
+/* Services gallery on shorter desktop/tablet screens: compact the pinned
+   heading so heading + cards fit under the floating header together. */
+@media (min-width:768px) and (max-height:980px){
+  .section_service .service_sticky-camera h2{ font-size:clamp(34px, 3.3vw, 46px); line-height:1.12; }
+  .section_service .service_sticky-camera > .margin-bottom.margin-56px{ margin-bottom:24px; padding-bottom:0; }
+}
+.section_service .service_sticky-camera{ transform-origin:50% 0; }
+
+/* short phones (iPhone SE etc.): shorter card photo so the pinned services
+   card fits between the header and the quick bar without shrinking the text */
+@media (max-width:767px) and (max-height:760px){
+  .section_service .scroll-mobile_camera .service-item_showcase{ min-height:clamp(220px, 36vh, 340px); }
+}

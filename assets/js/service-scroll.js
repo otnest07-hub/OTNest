@@ -17,17 +17,25 @@
 
   function sticky(el) { return getComputedStyle(el).position === "sticky"; }
 
-  // pin just below the floating header when the whole camera fits; otherwise
-  // pin so the cards are fully on screen and let the heading scroll past first
+  // pin just below the floating header with heading and cards both on screen:
+  // if the camera is taller than the space between the header and the bottom
+  // (or the phone quick bar), scale it down to fit rather than hide the heading
+  // never shrink further than this (cards need readable text, especially on phones)
+  function minScale(c) { return c.classList.contains("scroll-mobile_camera") ? 0.85 : 0.72; }
   function fit() {
-    cams.forEach(function (c) { c.style.top = ""; });
+    cams.forEach(function (c) { c.style.top = ""; c.style.transform = ""; c.style.transformOrigin = "50% 0"; });
     cam = null;
     for (var i = 0; i < cams.length; i++) if (sticky(cams[i])) { cam = cams[i]; break; }
     if (!cam) { list.style.transform = ""; return; }
     var header = document.querySelector(".otn-hd");
+    var dock = document.querySelector(".otn-bar");
     var clear = (header ? header.offsetHeight : 0) + 6;
-    var room = window.innerHeight - cam.offsetHeight;
-    cam.style.top = (room >= clear ? clear : Math.min(clear, room - 12)) + "px";
+    var bottom = dock && dock.offsetHeight ? window.innerHeight - dock.getBoundingClientRect().top + 6 : 10;
+    var avail = window.innerHeight - clear - bottom;
+    var s = Math.max(minScale(cam), Math.min(1, avail / cam.offsetHeight));
+    if (s < 1) cam.style.transform = "scale(" + s.toFixed(3) + ")";
+    var visual = cam.offsetHeight * s;
+    cam.style.top = (visual <= avail ? clear : window.innerHeight - bottom - visual) + "px";
     queue();
   }
 
